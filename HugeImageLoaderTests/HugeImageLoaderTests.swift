@@ -1,15 +1,8 @@
-//
-//  ImageViewerTests.swift
-//  ImageViewerTests
-//
-//  Created by Danning Ge on 9/23/18.
-//  Copyright © 2018 Danning Ge. All rights reserved.
-//
 
 import XCTest
-@testable import ImageViewer
+@testable import HugeImageLoader
 
-class ImageViewerTests: XCTestCase {
+class HugeImageLoaderTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

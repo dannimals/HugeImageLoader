@@ -2,18 +2,19 @@
 import UIKit
 import AudioToolbox
 
-class ImageViewerScrollView: UIScrollView {
+class HugeImageScrollView: UIScrollView {
 
     var tilingView: TilingView?
     var drawingContainerView: UIView? {
         return tilingView
     }
-    private var image: UIImage?
+    private var placeholderImage: UIImage?
     private(set) var doubleTapGestureRecognizer: UITapGestureRecognizer!
     var doesContentFitExact: Bool { return zoomScaleToFit == zoomScale }
     var zoomScaleToFit: CGFloat {
-        return min(bounds.size.width / (image?.size.width ?? 1), bounds.size.height / (image?.size.height ?? 1))
+        return min(bounds.size.width / (placeholderImage?.size.width ?? 1), bounds.size.height / (placeholderImage?.size.height ?? 1))
     }
+
     private func setupScrollView() {
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
@@ -49,16 +50,19 @@ class ImageViewerScrollView: UIScrollView {
         centerImageView()
     }
 
-    func display(image: UIImage, imageID: String, tileCacheManager: TileCacheManager, hasAlpha: Bool) {
+    func load(placeholderImage: UIImage, imageIdentifier: String, tileCacheManager: TileCacheManager, hasAlpha: Bool) {
         tileCacheManager.clearImageCache()
-        self.image = image
+
+        self.placeholderImage = placeholderImage
         if let tilingView = tilingView {
             tilingView.removeFromSuperview()
             self.tilingView = nil
         }
-        let tileManager = TileManager(image: image, imageID: imageID, cacheManager: tileCacheManager)
-        self.tilingView = TilingView(tileManager: tileManager, hasAlpha: hasAlpha)
+        let tileManager = TileManager(placeholderImage: placeholderImage, imageIdentifier: imageIdentifier, cacheManager: tileCacheManager)
+        self.tilingView = TilingView(tileManager: tileManager)
+
         guard let tilingView = self.tilingView else { return }
+
         addSubview(tilingView)
         setMaxMinZoomScaleForCurrentBounds()
     }
@@ -85,27 +89,12 @@ class ImageViewerScrollView: UIScrollView {
 
     func centerImageView() {
         guard let tilingView = self.tilingView else { return }
-
-        let boundsSize = bounds.size
-        var frameToCenter = tilingView.frame
-
-        if frameToCenter.size.width < boundsSize.width {
-            frameToCenter.origin.x = (boundsSize.width - frameToCenter.width) / 2
-        } else {
-            frameToCenter.origin.x = 0
-        }
-
-        if frameToCenter.size.height < boundsSize.height {
-            frameToCenter.origin.y = (boundsSize.height - frameToCenter.height) / 2
-        } else {
-            frameToCenter.origin.y = 0
-        }
-
-        tilingView.frame = frameToCenter
+        tilingView.frame = centerFrame(viewToCenter: tilingView)
     }
 
     func zoomToFit() {
         guard !doesContentFitExact else { return }
+
         zoomScale = zoomScaleToFit
         layoutIfNeeded()
         delegate?.scrollViewDidZoom?(self)
@@ -113,9 +102,10 @@ class ImageViewerScrollView: UIScrollView {
 
 }
 
-extension ImageViewerScrollView {
+extension HugeImageScrollView {
 
-    @objc private func didDoubleTap(_ gestureRecognizer: UIGestureRecognizer) {
+    @objc
+    private func didDoubleTap(_ gestureRecognizer: UIGestureRecognizer) {
         guard doesContentFitExact else {
             UIView.animate(withDuration: 0.25) {
                 self.zoomToFit()
@@ -132,4 +122,3 @@ extension ImageViewerScrollView {
     }
 
 }
-

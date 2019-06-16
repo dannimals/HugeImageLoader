@@ -3,17 +3,17 @@ import UIKit
 
 class TileManager {
 
-    private let image: UIImage
+    private let placeholderImage: UIImage
     private let cacheManager: TileCacheManager
     private let imageID: String
 
     var imageFrame: CGRect {
-        return CGRect(origin: .zero, size: image.size)
+        return CGRect(origin: .zero, size: placeholderImage.size)
     }
 
-    init(image: UIImage, imageID: String, cacheManager: TileCacheManager) {
-        self.image = image
-        self.imageID = imageID
+    init(placeholderImage: UIImage, imageIdentifier: String, cacheManager: TileCacheManager) {
+        self.placeholderImage = placeholderImage
+        self.imageID = imageIdentifier
         self.cacheManager = cacheManager
     }
 
@@ -31,9 +31,9 @@ class TileManager {
         guard let filePath = cacheManager.urlPathByAppending(pathComponent: pathComponent) else { return nil }
 
         if !cacheManager.fileExists(atPath: filePath.path) {
-            var optimalImage = image.cgImage
+            var optimalImage = placeholderImage.cgImage
             if scale * 1000 >= 4000 {
-                optimalImage = cacheManager.highResImage ?? image.cgImage
+                optimalImage = cacheManager.highResImage ?? placeholderImage.cgImage
             }
             guard let cgImage = optimalImage else { return nil }
             let mappedRect = mappedRectForImage(cgImage, rect: rect)
@@ -44,8 +44,8 @@ class TileManager {
     }
 
     private func mappedRectForImage(_ mappedImage: CGImage, rect: CGRect) -> CGRect {
-        let scaleX = CGFloat(mappedImage.width) / image.size.width
-        let scaleY = CGFloat(mappedImage.height) / image.size.height
+        let scaleX = CGFloat(mappedImage.width) / placeholderImage.size.width
+        let scaleY = CGFloat(mappedImage.height) / placeholderImage.size.height
 
         let mappedX = rect.minX * scaleX
         let mappedY = rect.minY * scaleY
