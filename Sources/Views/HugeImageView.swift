@@ -5,6 +5,7 @@ public enum HugeImageDownloadError: Error {
     case missingLocalCacheURL
     case failedToMoveItemToLocalCache
     case failedToDownloadItem(error: Error?)
+    case failedToSetupLocalCache
 }
 
 public protocol HugeImageViewDelegate: class {
@@ -20,7 +21,7 @@ public class HugeImageView: UIView {
     @IBOutlet weak var scrollView: HugeImageScrollView!
 
     private var placeholderImage: UIImage!
-    private var imageIdentifier: String!
+    private var imageID: String!
     private var imageHasAlpha: Bool!
 
     lazy var downloadSession: URLSession = {
@@ -29,23 +30,28 @@ public class HugeImageView: UIView {
     }()
 
     private var highResolutionImageLocalPathURL: URL? {
-        let highResComponent = "\(String(describing: imageIdentifier))_highResolutionImage"
+        let highResComponent = "\(String(describing: imageID))_highResolutionImage"
         return urlPathByAppending(pathComponent: highResComponent)
     }
 
     private func urlPathByAppending(pathComponent: String) -> URL? {
-        return dataCacheDirectory?.appendingPathComponent(pathComponent)
+        return cacheDirectoryURL?.appendingPathComponent(pathComponent)
     }
 
-    private lazy var dataCacheDirectory: URL? = {
-        let cacheDirectoryURL = DataCacheURL.dataCacheDirectoryURL(identifier: UUID().uuidString)
+    private lazy var cacheDirectoryURL: URL? = {
+        let cacheDirectoryURL = DataCacheURL.dataCacheDirectoryURL(identifier: "HugeImageLoaderUser")
         return cacheDirectoryURL?.appendingPathComponent("TiledImages")
     }()
 
-    func loadImages(highResolutionImageDownloadURL: URL, imageIdentifier: String, placeholderImage: UIImage, imageHasAlpha: Bool = true) {
+    public func loadImages(highResolutionImageDownloadURL: URL, imageID: String, placeholderImage: UIImage, imageHasAlpha: Bool = true) throws {
+        guard let cacheDirectoryURL = cacheDirectoryURL else { throw HugeImageDownloadError.failedToSetupLocalCache }
+
         self.placeholderImage = placeholderImage
-        self.imageIdentifier = imageIdentifier
+        self.imageID = imageID
         self.imageHasAlpha = imageHasAlpha
+
+        let tileCacheManager = TileCacheManager(cacheDirectoryURL: cacheDirectoryURL, imageID: imageID)
+        scrollView.load(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: imageHasAlpha)
         downloadHighResolutionImage(url: highResolutionImageDownloadURL)
     }
 
@@ -56,30 +62,28 @@ public class HugeImageView: UIView {
             guard
                 let urlResponse = urlResponse as? HTTPURLResponse,
                 (200...299).contains(urlResponse.statusCode) else {
-                strongSelf.delegate?.hugeImageViewDidFinishDownloadingImage(strongSelf, result: .failure(.failedToDownloadItem(error: error)))
-                return
+                    strongSelf.delegate?.hugeImageViewDidFinishDownloadingImage(strongSelf, result: .failure(.failedToDownloadItem(error: error)))
+                    return
             }
 
             guard
-                let dataCacheDirectory = self?.dataCacheDirectory,
                 let localHighResImageURL = self?.highResolutionImageLocalPathURL,
                 let tempFileURL = tempFileURL else {
                     strongSelf.delegate?.hugeImageViewDidFinishDownloadingImage(strongSelf, result: .failure(.missingLocalCacheURL))
                     return
             }
-
-            do {
-                try FileManager.default.moveItem(at: tempFileURL, to: localHighResImageURL)
-                strongSelf.delegate?.hugeImageViewDidFinishDownloadingImage(strongSelf, result: .success(localHighResImageURL))
-            } catch {
-                DispatchQueue.main.async {
-                    let tileCacheManager = TileCacheManager(cacheDirectoryURL: dataCacheDirectory, imageID: strongSelf.imageIdentifier)
-                    strongSelf.scrollView.load(placeholderImage: strongSelf.placeholderImage, imageIdentifier: strongSelf.imageIdentifier, tileCacheManager: tileCacheManager, hasAlpha: strongSelf.imageHasAlpha)
-                    strongSelf.delegate?.hugeImageViewDidFinishDownloadingImage(strongSelf, result: .failure(.failedToMoveItemToLocalCache))
-                }
-            }
+            strongSelf.moveItem(at: tempFileURL, to: localHighResImageURL)
         }
         task.resume()
+    }
+
+    private func moveItem(at tempFileURL: URL, to destinationURL: URL) {
+        do {
+            try FileManager.default.moveItem(at: tempFileURL, to: destinationURL)
+            delegate?.hugeImageViewDidFinishDownloadingImage(self, result: .success(destinationURL))
+        } catch {
+            delegate?.hugeImageViewDidFinishDownloadingImage(self, result: .failure(.failedToMoveItemToLocalCache))
+        }
     }
 
 }

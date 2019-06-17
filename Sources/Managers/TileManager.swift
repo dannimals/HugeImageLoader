@@ -11,9 +11,9 @@ class TileManager {
         return CGRect(origin: .zero, size: placeholderImage.size)
     }
 
-    init(placeholderImage: UIImage, imageIdentifier: String, cacheManager: TileCacheManager) {
+    init(placeholderImage: UIImage, imageID: String, cacheManager: TileCacheManager) {
         self.placeholderImage = placeholderImage
-        self.imageID = imageIdentifier
+        self.imageID = imageID
         self.cacheManager = cacheManager
     }
 

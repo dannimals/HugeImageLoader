@@ -50,7 +50,7 @@ class HugeImageScrollView: UIScrollView {
         centerImageView()
     }
 
-    func load(placeholderImage: UIImage, imageIdentifier: String, tileCacheManager: TileCacheManager, hasAlpha: Bool) {
+    func load(placeholderImage: UIImage, imageID: String, tileCacheManager: TileCacheManager, hasAlpha: Bool) {
         tileCacheManager.clearImageCache()
 
         self.placeholderImage = placeholderImage
@@ -58,7 +58,7 @@ class HugeImageScrollView: UIScrollView {
             tilingView.removeFromSuperview()
             self.tilingView = nil
         }
-        let tileManager = TileManager(placeholderImage: placeholderImage, imageIdentifier: imageIdentifier, cacheManager: tileCacheManager)
+        let tileManager = TileManager(placeholderImage: placeholderImage, imageID: imageID, cacheManager: tileCacheManager)
         self.tilingView = TilingView(tileManager: tileManager)
 
         guard let tilingView = self.tilingView else { return }
