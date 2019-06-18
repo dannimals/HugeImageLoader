@@ -14,11 +14,18 @@ public protocol HugeImageViewDelegate: class {
 
 }
 
-public class HugeImageView: UIView {
+public class HugeImageView: UIView, StoryboardNestable {
 
     public weak var delegate: HugeImageViewDelegate?
 
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: HugeImageScrollView!
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        loadViewFromNib()
+    }
 
     public func configure(highResolutionImageRemoteURL: URL, imageID: String, placeholderImage: UIImage, fullImageSize: CGSize, imageHasAlpha: Bool = true) {
         let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageID: imageID)

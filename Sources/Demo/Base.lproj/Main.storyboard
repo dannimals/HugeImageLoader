@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Osz-OO-bcO">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,41 +11,39 @@
     </dependencies>
     <scenes>
         <!--Huge Image View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="yDi-pf-5qY">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HugeImageViewController" customModule="HugeImageLoader" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="HugeImageView" customModule="HugeImageLoader" customModuleProvider="target">
+                <viewController id="Osz-OO-bcO" customClass="HugeImageViewController" customModule="HugeImageLoader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nee-fu-ihk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vje-YN-tg1" customClass="HugeImageScrollView" customModule="HugeImageLoader" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pae-2u-qU2" customClass="HugeImageView" customModule="HugeImageLoader" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                            </scrollView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qPg-xO-zYk">
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LYV-0f-8yT">
                                 <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Vje-YN-tg1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2ZH-IA-1Ez"/>
-                            <constraint firstItem="qPg-xO-zYk" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7PQ-wr-06D"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vje-YN-tg1" secondAttribute="bottom" id="AtX-U1-Aiu"/>
-                            <constraint firstItem="Vje-YN-tg1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ChA-67-WHB"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vje-YN-tg1" secondAttribute="trailing" id="d45-ec-KEA"/>
-                            <constraint firstItem="qPg-xO-zYk" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="yo3-Li-nXd"/>
+                            <constraint firstItem="Fx3-T5-StO" firstAttribute="bottom" secondItem="pae-2u-qU2" secondAttribute="bottom" id="64t-57-2SR"/>
+                            <constraint firstItem="pae-2u-qU2" firstAttribute="leading" secondItem="Fx3-T5-StO" secondAttribute="leading" id="MeW-zR-MwL"/>
+                            <constraint firstItem="LYV-0f-8yT" firstAttribute="centerY" secondItem="Fx3-T5-StO" secondAttribute="centerY" id="RRj-i0-PtT"/>
+                            <constraint firstItem="pae-2u-qU2" firstAttribute="top" secondItem="Fx3-T5-StO" secondAttribute="top" id="dU0-Kl-ZtK"/>
+                            <constraint firstItem="Fx3-T5-StO" firstAttribute="trailing" secondItem="pae-2u-qU2" secondAttribute="trailing" id="nHL-F0-kqR"/>
+                            <constraint firstItem="LYV-0f-8yT" firstAttribute="centerX" secondItem="Fx3-T5-StO" secondAttribute="centerX" id="xqb-Uf-YCF"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <connections>
-                            <outlet property="scrollView" destination="Vje-YN-tg1" id="zab-fm-Iij"/>
-                        </connections>
+                        <viewLayoutGuide key="safeArea" id="Fx3-T5-StO"/>
                     </view>
                     <connections>
-                        <outlet property="hugeImageView" destination="8bC-Xf-vdC" id="9Lg-sK-9EK"/>
-                        <outlet property="loadingIndicator" destination="qPg-xO-zYk" id="hYE-aG-Tmv"/>
+                        <outlet property="hugeImageView" destination="pae-2u-qU2" id="utJ-0Q-K8p"/>
+                        <outlet property="loadingIndicator" destination="LYV-0f-8yT" id="aCB-n9-T9H"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wcn-cQ-4NL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-157" y="-139"/>
         </scene>
     </scenes>
 </document>

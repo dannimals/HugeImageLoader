@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E39A8C322B8886D003E76EF /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39A8C222B8886D003E76EF /* UIImage+Extensions.swift */; };
+		9E39A8C522B88A0C003E76EF /* HugeImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E39A8C422B88A0C003E76EF /* HugeImageView.xib */; };
 		9E3CAF092158187400E44C8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF082158187400E44C8D /* AppDelegate.swift */; };
 		9E3CAF0B2158187400E44C8D /* HugeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF0A2158187400E44C8D /* HugeImageViewController.swift */; };
 		9E3CAF0E2158187400E44C8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3CAF0C2158187400E44C8D /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		9E39A8C222B8886D003E76EF /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		9E39A8C422B88A0C003E76EF /* HugeImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HugeImageView.xib; sourceTree = "<group>"; };
 		9E3CAF052158187400E44C8D /* HugeImageLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HugeImageLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3CAF082158187400E44C8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E3CAF0A2158187400E44C8D /* HugeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HugeImageViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				9E3CAF40215B15AA00E44C8D /* TilingView.swift */,
 				9E3CAF3E215B143C00E44C8D /* HugeImageScrollView.swift */,
 				9E3CAF46215B197100E44C8D /* HugeImageView.swift */,
+				9E39A8C422B88A0C003E76EF /* HugeImageView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E3CAF132158187600E44C8D /* LaunchScreen.storyboard in Resources */,
+				9E39A8C522B88A0C003E76EF /* HugeImageView.xib in Resources */,
 				9E3CAF102158187600E44C8D /* Assets.xcassets in Resources */,
 				9E3CAF0E2158187400E44C8D /* Main.storyboard in Resources */,
 			);
