@@ -31,6 +31,7 @@ class TilingView: UIView {
 
     func configureTiledLayer() {
         guard let tiledLayer = layer as? CATiledLayer else { return }
+
         tiledLayer.levelsOfDetail = levelsOfDetail
         tiledLayer.levelsOfDetailBias = levelsOfDetailBias
         tiledLayer.tileSize = tileSize

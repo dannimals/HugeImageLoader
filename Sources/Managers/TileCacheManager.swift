@@ -15,8 +15,6 @@ class TileCacheManager: NSObject {
 
     weak var delegate: TileCacheManagerDelegate?
 
-    var finishedDownloadingHighResImage = false
-
     var highResolutionImage: CGImage? {
         guard
             let highResolutionImageLocalPathURL = highResolutionImageLocalPathURL,

@@ -19,7 +19,7 @@ public class HugeImageView: UIView, StoryboardNestable {
     public weak var delegate: HugeImageViewDelegate?
 
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var scrollView: HugeImageScrollView!
+    @IBOutlet weak var hugeImageScrollView: HugeImageScrollView!
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -27,10 +27,17 @@ public class HugeImageView: UIView, StoryboardNestable {
         loadViewFromNib()
     }
 
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+
+        hugeImageScrollView.delegate = self
+        contentView.backgroundColor = .clear
+    }
+
     public func configure(highResolutionImageRemoteURL: URL, imageID: String, placeholderImage: UIImage, fullImageSize: CGSize, imageHasAlpha: Bool = true) {
         let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageID: imageID)
         tileCacheManager.delegate = self
-        scrollView.configure(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: imageHasAlpha, fullImageSize: fullImageSize)
+        hugeImageScrollView.configure(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: imageHasAlpha, fullImageSize: fullImageSize)
     }
 
 }
@@ -43,4 +50,11 @@ extension HugeImageView: TileCacheManagerDelegate {
         }
     }
 
+}
+
+extension HugeImageView: UIScrollViewDelegate {
+
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return hugeImageScrollView.viewForZooming
+    }
 }

@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HugeImageView" customModule="HugeImageLoader" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="E24-B2-BOy" id="TRI-ZI-YGL"/>
-                <outlet property="scrollView" destination="mYW-Kv-bBi" id="B7w-RL-NA9"/>
+                <outlet property="hugeImageScrollView" destination="mYW-Kv-bBi" id="HAd-iW-4uO"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

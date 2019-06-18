@@ -14,6 +14,10 @@ class HugeImageScrollView: UIScrollView {
         return min(bounds.size.width / (placeholderImage?.size.width ?? 1), bounds.size.height / (placeholderImage?.size.height ?? 1))
     }
 
+    var viewForZooming: UIView? {
+        return tilingView
+    }
+
     private var placeholderImage: UIImage?
     private(set) var doubleTapGestureRecognizer: UITapGestureRecognizer!
     private var fullImageSize: CGSize = .zero
@@ -45,9 +49,9 @@ class HugeImageScrollView: UIScrollView {
             self.tilingView = nil
         }
         let tileGenerator = TileGenerator(placeholderImage: placeholderImage, imageID: imageID, cacheManager: tileCacheManager)
-        let tilingView = TilingView(tileGenerator: tileGenerator, hasAlpha: hasAlpha)
+        self.tilingView = TilingView(tileGenerator: tileGenerator, hasAlpha: hasAlpha)
+        guard let tilingView = self.tilingView else { return }
         addSubview(tilingView)
-        self.tilingView = tilingView
         setMaxMinZoomScaleForCurrentBounds()
     }
 
@@ -77,6 +81,7 @@ class HugeImageScrollView: UIScrollView {
 
         maximumZoomScale = calculateMaximumZoomScale()
         minimumZoomScale = 0.125
+
         if tilingView.bounds.size.width > bounds.width {
             let scale = bounds.width / tilingView.bounds.size.width
             minimumZoomScale = min(minimumZoomScale, scale)
