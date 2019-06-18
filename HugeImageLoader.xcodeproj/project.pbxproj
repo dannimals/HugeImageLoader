@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E39A8C322B8886D003E76EF /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39A8C222B8886D003E76EF /* UIImage+Extensions.swift */; };
 		9E3CAF092158187400E44C8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF082158187400E44C8D /* AppDelegate.swift */; };
 		9E3CAF0B2158187400E44C8D /* HugeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF0A2158187400E44C8D /* HugeImageViewController.swift */; };
 		9E3CAF0E2158187400E44C8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3CAF0C2158187400E44C8D /* Main.storyboard */; };
 		9E3CAF102158187600E44C8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E3CAF0F2158187600E44C8D /* Assets.xcassets */; };
 		9E3CAF132158187600E44C8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3CAF112158187600E44C8D /* LaunchScreen.storyboard */; };
 		9E3CAF1E2158187600E44C8D /* HugeImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF1D2158187600E44C8D /* HugeImageLoaderTests.swift */; };
-		9E3CAF3F215B143C00E44C8D /* HugeImageLoaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF3E215B143C00E44C8D /* HugeImageLoaderScrollView.swift */; };
+		9E3CAF3F215B143C00E44C8D /* HugeImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF3E215B143C00E44C8D /* HugeImageScrollView.swift */; };
 		9E3CAF41215B15AA00E44C8D /* TilingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF40215B15AA00E44C8D /* TilingView.swift */; };
-		9E3CAF43215B15CB00E44C8D /* TileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF42215B15CB00E44C8D /* TileManager.swift */; };
+		9E3CAF43215B15CB00E44C8D /* ImageTileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF42215B15CB00E44C8D /* ImageTileGenerator.swift */; };
 		9E3CAF45215B15F200E44C8D /* TileCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF44215B15F200E44C8D /* TileCacheManager.swift */; };
 		9E3CAF47215B197100E44C8D /* HugeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF46215B197100E44C8D /* HugeImageView.swift */; };
-		9EBAF97222B6D964008F8228 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBAF97122B6D964008F8228 /* View+Extensions.swift */; };
+		9EBAF97222B6D964008F8228 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBAF97122B6D964008F8228 /* UIView+Extensions.swift */; };
 		9EBAF97422B6E469008F8228 /* DataCacheURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBAF97322B6E469008F8228 /* DataCacheURL.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E39A8C222B8886D003E76EF /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		9E3CAF052158187400E44C8D /* HugeImageLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HugeImageLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3CAF082158187400E44C8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E3CAF0A2158187400E44C8D /* HugeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HugeImageViewController.swift; sourceTree = "<group>"; };
@@ -43,12 +45,12 @@
 		9E3CAF192158187600E44C8D /* HugeImageLoaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HugeImageLoaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3CAF1D2158187600E44C8D /* HugeImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HugeImageLoaderTests.swift; sourceTree = "<group>"; };
 		9E3CAF1F2158187600E44C8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E3CAF3E215B143C00E44C8D /* HugeImageLoaderScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HugeImageLoaderScrollView.swift; sourceTree = "<group>"; };
+		9E3CAF3E215B143C00E44C8D /* HugeImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HugeImageScrollView.swift; sourceTree = "<group>"; };
 		9E3CAF40215B15AA00E44C8D /* TilingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingView.swift; sourceTree = "<group>"; };
-		9E3CAF42215B15CB00E44C8D /* TileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileManager.swift; sourceTree = "<group>"; };
+		9E3CAF42215B15CB00E44C8D /* ImageTileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTileGenerator.swift; sourceTree = "<group>"; };
 		9E3CAF44215B15F200E44C8D /* TileCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCacheManager.swift; sourceTree = "<group>"; };
 		9E3CAF46215B197100E44C8D /* HugeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HugeImageView.swift; sourceTree = "<group>"; };
-		9EBAF97122B6D964008F8228 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		9EBAF97122B6D964008F8228 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		9EBAF97322B6E469008F8228 /* DataCacheURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				9E3CAF44215B15F200E44C8D /* TileCacheManager.swift */,
-				9E3CAF42215B15CB00E44C8D /* TileManager.swift */,
+				9E3CAF42215B15CB00E44C8D /* ImageTileGenerator.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -124,7 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				9E3CAF40215B15AA00E44C8D /* TilingView.swift */,
-				9E3CAF3E215B143C00E44C8D /* HugeImageLoaderScrollView.swift */,
+				9E3CAF3E215B143C00E44C8D /* HugeImageScrollView.swift */,
 				9E3CAF46215B197100E44C8D /* HugeImageView.swift */,
 			);
 			path = Views;
@@ -143,7 +145,8 @@
 		9EBAF97022B6D955008F8228 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				9EBAF97122B6D964008F8228 /* View+Extensions.swift */,
+				9EBAF97122B6D964008F8228 /* UIView+Extensions.swift */,
+				9E39A8C222B8886D003E76EF /* UIImage+Extensions.swift */,
 				9EBAF97322B6E469008F8228 /* DataCacheURL.swift */,
 			);
 			path = Utilities;
@@ -252,12 +255,13 @@
 			files = (
 				9EBAF97422B6E469008F8228 /* DataCacheURL.swift in Sources */,
 				9E3CAF0B2158187400E44C8D /* HugeImageViewController.swift in Sources */,
-				9E3CAF43215B15CB00E44C8D /* TileManager.swift in Sources */,
+				9E3CAF43215B15CB00E44C8D /* ImageTileGenerator.swift in Sources */,
 				9E3CAF41215B15AA00E44C8D /* TilingView.swift in Sources */,
-				9E3CAF3F215B143C00E44C8D /* HugeImageLoaderScrollView.swift in Sources */,
+				9E3CAF3F215B143C00E44C8D /* HugeImageScrollView.swift in Sources */,
 				9E3CAF092158187400E44C8D /* AppDelegate.swift in Sources */,
 				9E3CAF45215B15F200E44C8D /* TileCacheManager.swift in Sources */,
-				9EBAF97222B6D964008F8228 /* View+Extensions.swift in Sources */,
+				9E39A8C322B8886D003E76EF /* UIImage+Extensions.swift in Sources */,
+				9EBAF97222B6D964008F8228 /* UIView+Extensions.swift in Sources */,
 				9E3CAF47215B197100E44C8D /* HugeImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

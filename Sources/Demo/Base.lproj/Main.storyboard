@@ -21,13 +21,18 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vje-YN-tg1" customClass="HugeImageScrollView" customModule="HugeImageLoader" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qPg-xO-zYk">
+                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Vje-YN-tg1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2ZH-IA-1Ez"/>
+                            <constraint firstItem="qPg-xO-zYk" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7PQ-wr-06D"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vje-YN-tg1" secondAttribute="bottom" id="AtX-U1-Aiu"/>
                             <constraint firstItem="Vje-YN-tg1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ChA-67-WHB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vje-YN-tg1" secondAttribute="trailing" id="d45-ec-KEA"/>
+                            <constraint firstItem="qPg-xO-zYk" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="yo3-Li-nXd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
@@ -35,7 +40,8 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="imageViewerView" destination="8bC-Xf-vdC" id="9Lg-sK-9EK"/>
+                        <outlet property="hugeImageView" destination="8bC-Xf-vdC" id="9Lg-sK-9EK"/>
+                        <outlet property="loadingIndicator" destination="qPg-xO-zYk" id="hYE-aG-Tmv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

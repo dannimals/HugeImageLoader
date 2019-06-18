@@ -3,17 +3,16 @@ import UIKit
 
 class TilingView: UIView {
 
-    private let tileManager: TileManager
+    private let tileGenerator: TileGenerator
     private var tileBounds: CGRect?
     private let tileSize = CGSize(width: 400, height: 400)
     private let levelsOfDetail = 7
     private let levelsOfDetailBias = 3
-
+    private let hasAlpha: Bool
 
     override static var layerClass: AnyClass {
         return CATiledLayer.self
     }
-
 
     override var contentScaleFactor: CGFloat {
         didSet {
@@ -21,10 +20,11 @@ class TilingView: UIView {
         }
     }
 
+    required init(tileGenerator: TileGenerator, hasAlpha: Bool) {
+        self.tileGenerator = tileGenerator
+        self.hasAlpha = hasAlpha
 
-    required init(tileManager: TileManager) {
-        self.tileManager = tileManager
-        super.init(frame: tileManager.imageFrame)
+        super.init(frame: tileGenerator.imageFrame)
 
         configureTiledLayer()
     }
@@ -34,6 +34,11 @@ class TilingView: UIView {
         tiledLayer.levelsOfDetail = levelsOfDetail
         tiledLayer.levelsOfDetailBias = levelsOfDetailBias
         tiledLayer.tileSize = tileSize
+
+        guard hasAlpha, let checkerboard = UIImage.checkerboard else { return }
+
+        tiledLayer.isOpaque = false
+        tiledLayer.backgroundColor = UIColor(patternImage: checkerboard).cgColor
     }
 
     override func didMoveToSuperview() {
@@ -59,13 +64,14 @@ class TilingView: UIView {
         guard lastRow >= firstRow && lastColumn >= firstColumn else { return }
         for row in firstRow...lastRow {
             for col in firstColumn...lastColumn {
-                guard let tile = tileManager.tileFor(size: tileSize, scale: scale, rect: rect, row: row, col: col) else { return }
+                guard let tile = tileGenerator.tileFor(size: tileSize, scale: scale, rect: rect, row: row, col: col) else { return }
 
                 var tileRect = CGRect(x: tileSize.width * CGFloat(col), y: tileSize.height * CGFloat(row), width: tileSize.width, height: tileSize.height)
                 tileRect = tileBounds.intersection(tileRect)
                 tile.draw(in: tileRect)
             }
-        }    }
+        }
+    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
