@@ -20,11 +20,11 @@ class TilingView: UIView {
         }
     }
 
-    required init(tileGenerator: TileGenerator, hasAlpha: Bool) {
+    required init(frame: CGRect, tileGenerator: TileGenerator, hasAlpha: Bool) {
         self.tileGenerator = tileGenerator
         self.hasAlpha = hasAlpha
 
-        super.init(frame: tileGenerator.imageFrame)
+        super.init(frame: frame)
 
         configureTiledLayer()
     }

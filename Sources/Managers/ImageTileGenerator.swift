@@ -7,10 +7,6 @@ class TileGenerator {
     private let tileCacheManager: TileCacheManager
     private let imageID: String
 
-    var imageFrame: CGRect {
-        return CGRect(origin: .zero, size: placeholderImage.size)
-    }
-
     init(placeholderImage: UIImage, imageID: String, cacheManager: TileCacheManager) {
         self.placeholderImage = placeholderImage
         self.imageID = imageID
