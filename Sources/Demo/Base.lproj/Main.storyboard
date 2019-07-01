@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Osz-OO-bcO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U1b-sb-JaG">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,34 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="GtY-br-yKq">
+            <objects>
+                <viewController id="U1b-sb-JaG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rSu-B6-z4q">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfd-1b-n2b">
+                                <rect key="frame" x="146.5" y="438" width="121" height="30"/>
+                                <state key="normal" title="Landscape Image"/>
+                                <connections>
+                                    <segue destination="Osz-OO-bcO" kind="presentation" id="pCv-ow-Dut"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Zfd-1b-n2b" firstAttribute="centerY" secondItem="K83-j7-XeR" secondAttribute="centerY" id="7DB-px-hgz"/>
+                            <constraint firstItem="Zfd-1b-n2b" firstAttribute="centerX" secondItem="K83-j7-XeR" secondAttribute="centerX" id="RoB-pH-RHK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="K83-j7-XeR"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xem-gg-1LR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-448" y="-192"/>
+        </scene>
         <!--Huge Image View Controller-->
         <scene sceneID="yDi-pf-5qY">
             <objects>
@@ -21,6 +49,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pae-2u-qU2" customClass="HugeImageView" customModule="HugeImageLoader" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSw-UA-GnR">
+                                <rect key="frame" x="16" y="60" width="39" height="30"/>
+                                <state key="normal" title="Close"/>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="Osz-OO-bcO" eventType="touchUpInside" id="qbq-Nu-pjY"/>
+                                </connections>
+                            </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LYV-0f-8yT">
                                 <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
                             </activityIndicatorView>
@@ -28,6 +63,8 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Fx3-T5-StO" firstAttribute="bottom" secondItem="pae-2u-qU2" secondAttribute="bottom" id="64t-57-2SR"/>
+                            <constraint firstItem="NSw-UA-GnR" firstAttribute="top" secondItem="Fx3-T5-StO" secondAttribute="top" constant="16" id="Dbw-Vu-EZo"/>
+                            <constraint firstItem="NSw-UA-GnR" firstAttribute="leading" secondItem="Fx3-T5-StO" secondAttribute="leading" constant="16" id="Dwt-N6-mpx"/>
                             <constraint firstItem="pae-2u-qU2" firstAttribute="leading" secondItem="Fx3-T5-StO" secondAttribute="leading" id="MeW-zR-MwL"/>
                             <constraint firstItem="LYV-0f-8yT" firstAttribute="centerY" secondItem="Fx3-T5-StO" secondAttribute="centerY" id="RRj-i0-PtT"/>
                             <constraint firstItem="pae-2u-qU2" firstAttribute="top" secondItem="Fx3-T5-StO" secondAttribute="top" id="dU0-Kl-ZtK"/>
@@ -43,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wcn-cQ-4NL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-157" y="-139"/>
+            <point key="canvasLocation" x="238" y="-192"/>
         </scene>
     </scenes>
 </document>

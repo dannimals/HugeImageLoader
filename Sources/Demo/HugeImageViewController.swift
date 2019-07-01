@@ -25,6 +25,11 @@ class HugeImageViewController: UIViewController {
         loadingIndicator.isHidden = true
     }
 
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
+
 }
 
 extension HugeImageViewController: HugeImageViewDelegate {

@@ -2,16 +2,17 @@
 import UIKit
 import AudioToolbox
 
-class HugeImageScrollView: UIScrollView {
+class HugeImageScrollView: UIScrollView, ViewStylePreparing {
 
     private enum Constant {
         static let retinaScale: CGFloat = UIScreen.main.scale
+        static let animationDuration: TimeInterval = 0.2
     }
 
     var drawingContainerView: UIView? {
         return tilingView
     }
-    var viewForZooming: UIView? { return tilingView }
+    var viewForZooming: UIView { return tilingView }
 
     private(set) var tilingView: TilingView!
     private var isZoomedToFit: Bool {
@@ -27,6 +28,12 @@ class HugeImageScrollView: UIScrollView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+
+        setup()
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
         setup()
     }
@@ -50,6 +57,7 @@ class HugeImageScrollView: UIScrollView {
                    fullImageSize: CGSize) {
         self.placeholderImageSize = placeholderImage.size
         setupTilingView(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: hasAlpha)
+        layoutIfNeeded()
         setMaxMinZoomScale(forFileSize: fullImageSize)
     }
 
@@ -72,6 +80,14 @@ class HugeImageScrollView: UIScrollView {
         panGestureRecognizer.minimumNumberOfTouches = minNumberOfTouches
     }
 
+    func setup() {
+        setupDoubleTapGestureRecognizer()
+    }
+
+    func setupViews() {
+        setupScrollView()
+    }
+
     private func setupScrollView() {
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
@@ -84,14 +100,7 @@ class HugeImageScrollView: UIScrollView {
         addGestureRecognizer(doubleTapGestureRecognizer)
     }
 
-    private func setup() {
-        setupScrollView()
-        setupDoubleTapGestureRecognizer()
-    }
-
     private func setMaxMinZoomScale(forFileSize fileSize: CGSize) {
-        guard let tilingView = tilingView else { return }
-
         let bounds = UIScreen.main.bounds
         maximumZoomScale = calculateMaximumZoomScale(forFileSize: fileSize)
         minimumZoomScale = 0.125
@@ -118,26 +127,23 @@ class HugeImageScrollView: UIScrollView {
         tilingView.frame = centerFrame(viewToCenter: tilingView)
     }
 
-    private func zoomToFit() {
-        zoomScale = zoomScaleToFit
-        layoutIfNeeded()
-        delegate?.scrollViewDidZoom?(self)
+    private func zoomToFit(animated: Bool = true) {
+        let animationDuration: TimeInterval = animated ? Constant.animationDuration : 0
+        UIView.animate(withDuration: animationDuration) {
+            self.zoomScale = self.zoomScaleToFit
+        }
     }
 
     @objc
     private func didDoubleTap(_ gestureRecognizer: UIGestureRecognizer) {
-        guard isZoomedToFit else {
-            UIView.animate(withDuration: 0.25) {
-                self.zoomToFit()
-            }
-            return
+        if isZoomedToFit {
+            let location = gestureRecognizer.location(in: self)
+            guard tilingView.frame.contains(location) else { return }
+            let zoomPoint = gestureRecognizer.location(in: tilingView)
+            zoomToPoint(zoomPoint)
+        } else {
+            zoomToFit()
         }
-        let location = gestureRecognizer.location(in: tilingView)
-        let zoomPoint = (superview ?? self).convert(location, to: self)
-        let zoomRect = CGRect(origin: zoomPoint, size: .zero)
-        maximumZoomScale = 1
-        zoom(to: zoomRect, animated: true)
-        maximumZoomScale = 2
     }
 
 }

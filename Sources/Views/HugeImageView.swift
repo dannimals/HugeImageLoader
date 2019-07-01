@@ -14,7 +14,7 @@ public protocol HugeImageViewDelegate: class {
 
 }
 
-public class HugeImageView: UIView, StoryboardNestable {
+public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
 
     public weak var delegate: HugeImageViewDelegate?
 
@@ -30,7 +30,14 @@ public class HugeImageView: UIView, StoryboardNestable {
     public override func awakeFromNib() {
         super.awakeFromNib()
 
+        setup()
+    }
+
+    func setupViews() {
         hugeImageScrollView.delegate = self
+    }
+
+    func setupColors() {
         contentView.backgroundColor = .clear
     }
 
@@ -57,4 +64,9 @@ extension HugeImageView: UIScrollViewDelegate {
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return hugeImageScrollView.viewForZooming
     }
+
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        scrollView.layoutSubviews()
+    }
+
 }

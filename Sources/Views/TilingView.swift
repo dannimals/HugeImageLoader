@@ -62,7 +62,9 @@ class TilingView: UIView {
         let lastColumn = Int(floor((rect.maxX - 1) / tileSize.width))
         let firstRow = Int(floor(rect.minY / tileSize.height))
         let lastRow = Int(floor((rect.maxY - 1) / tileSize.height))
+
         guard lastRow >= firstRow && lastColumn >= firstColumn else { return }
+
         for row in firstRow...lastRow {
             for col in firstColumn...lastColumn {
                 guard let tile = tileGenerator.tileFor(size: tileSize, scale: scale, rect: rect, row: row, col: col) else { return }
