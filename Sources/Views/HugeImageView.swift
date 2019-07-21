@@ -18,12 +18,13 @@ public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
 
     public weak var delegate: HugeImageViewDelegate?
 
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var hugeImageScrollView: HugeImageScrollView!
-
     public var drawingView: UIView? {
         return hugeImageScrollView.drawingContainerView
     }
+
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var hugeImageScrollView: HugeImageScrollView!
+
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

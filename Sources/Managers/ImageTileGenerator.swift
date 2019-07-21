@@ -23,17 +23,18 @@ class TileGenerator {
 
         guard let filePath = tileCacheManager.urlPathByAppending(pathComponent: pathComponent) else { return nil }
 
-        if !tileCacheManager.fileExists(atPath: filePath.path) {
-            var optimalImage = placeholderImage.cgImage
-            if scale * 1000 >= 4000 {
-                optimalImage = tileCacheManager.highResolutionImage ?? placeholderImage.cgImage
-            }
-            guard let cgImage = optimalImage else { return nil }
-
-            let mappedRect = mappedRectForImage(cgImage, rect: rect)
-            saveTile(forImage: cgImage, ofSize: size, forRect: mappedRect, usingPrefix: prefix, forRow: row, forCol: col)
+        guard !tileCacheManager.fileExists(atPath: filePath.path) else {
+            return UIImage(contentsOfFile: filePath.path)
         }
 
+        var optimalImage = placeholderImage.cgImage
+        if scale * 1000 >= 4000 {
+            optimalImage = tileCacheManager.highResolutionImage ?? placeholderImage.cgImage
+        }
+        guard let cgImage = optimalImage else { return nil }
+
+        let mappedRect = mappedRectForImage(cgImage, rect: rect)
+        saveTile(forImage: cgImage, ofSize: size, forRect: mappedRect, usingPrefix: prefix, forRow: row, forCol: col)
         return UIImage(contentsOfFile: filePath.path)
     }
 
