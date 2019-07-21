@@ -9,6 +9,7 @@ class TilingView: UIView {
     private let levelsOfDetail = 7
     private let levelsOfDetailBias = 3
     private let hasAlpha: Bool
+    private let coverImageSize: CGSize
 
     override static var layerClass: AnyClass {
         return CATiledLayer.self
@@ -20,9 +21,10 @@ class TilingView: UIView {
         }
     }
 
-    required init(frame: CGRect, tileGenerator: TileGenerator, hasAlpha: Bool) {
+    required init(frame: CGRect, tileGenerator: TileGenerator, hasAlpha: Bool, coverImageSize: CGSize) {
         self.tileGenerator = tileGenerator
         self.hasAlpha = hasAlpha
+        self.coverImageSize = coverImageSize
 
         super.init(frame: frame)
 
@@ -54,6 +56,11 @@ class TilingView: UIView {
             let tileBounds = tileBounds, tileBounds != .zero else { return }
 
         let scale: CGFloat = currentContext.ctm.a
+
+        guard scale != 1.0 else {
+            tileGenerator.coverImage.draw(in: CGRect(origin: .zero, size: coverImageSize))
+            return
+        }
         var tileSize = self.tileSize
         tileSize.width /= scale
         tileSize.height /= scale

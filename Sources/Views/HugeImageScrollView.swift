@@ -54,18 +54,21 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
                    imageID: String,
                    tileCacheManager: TileCacheManager,
                    hasAlpha: Bool,
-                   fullImageSize: CGSize) {
+                   fullImageSize: CGSize,
+                   coverImageSize: CGSize) {
         self.placeholderImageSize = placeholderImage.size
-        setupTilingView(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: hasAlpha)
+        let coverImageAspectRatio = coverImageSize.width / coverImageSize.height
+        setupTilingView(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: hasAlpha, coverImageAspectRatio: coverImageAspectRatio)
         layoutIfNeeded()
         setMaxMinZoomScale(forFileSize: fullImageSize)
     }
 
-    private func setupTilingView(placeholderImage: UIImage, imageID: String, tileCacheManager: TileCacheManager, hasAlpha: Bool) {
+    private func setupTilingView(placeholderImage: UIImage, imageID: String, tileCacheManager: TileCacheManager, hasAlpha: Bool, coverImageAspectRatio: CGFloat) {
         removeTilingViewIfNeeded()
         let tileGenerator = TileGenerator(placeholderImage: placeholderImage, imageID: imageID, cacheManager: tileCacheManager)
-        let tilingViewFrame = CGRect(origin: .zero, size: placeholderImage.size)
-        tilingView = TilingView(frame: tilingViewFrame, tileGenerator: tileGenerator, hasAlpha: hasAlpha)
+        let tilingViewFrame = CGRect(origin: .zero, size: placeholderImage.size) // FIXME: The size seems wrong
+        let coverImageSize = constrainSizeToBounds(tilingViewFrame, aspectRatio: coverImageAspectRatio)
+        tilingView = TilingView(frame: tilingViewFrame, tileGenerator: tileGenerator, hasAlpha: hasAlpha, coverImageSize: coverImageSize)
         addSubview(tilingView)
     }
 
@@ -129,6 +132,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
 
     private func zoomToFit(animated: Bool = true) {
         setZoomScale(zoomScaleToFit, animated: animated)
+        tilingView.setNeedsDisplay()
     }
 
     @objc

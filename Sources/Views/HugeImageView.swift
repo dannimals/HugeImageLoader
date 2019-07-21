@@ -47,9 +47,11 @@ public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
     }
 
     public func load(highResolutionImageRemoteURL: URL, imageID: String, placeholderImage: UIImage, fullImageSize: CGSize, imageHasAlpha: Bool = true) {
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageID: imageID)
+        layoutIfNeeded()
+        let coverImageSize = constrainSizeToBounds(desiredSize: fullImageSize)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageID: imageID, coverImageSize: coverImageSize)
         tileCacheManager.delegate = self
-        hugeImageScrollView.configure(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: imageHasAlpha, fullImageSize: fullImageSize)
+        hugeImageScrollView.configure(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: imageHasAlpha, fullImageSize: fullImageSize, coverImageSize: coverImageSize)
     }
 
 }

@@ -12,6 +12,7 @@ class TileCacheManager: NSObject {
     private let fileManager = FileManager.default
     private let tiledImagesPathName = "TiledImages"
     private let imageID: String
+    private let coverImageSize: CGSize
 
     weak var delegate: TileCacheManagerDelegate?
 
@@ -26,8 +27,14 @@ class TileCacheManager: NSObject {
         return highResolutionImage
     }
 
-    init(highResolutionImageRemoteURL: URL, imageID: String) {
+    var coverImage: UIImage? {
+        cacheCoverImageTileIfNeeded(ofSize: coverImageSize)
+        return UIImage(contentsOfFile: coverImageTilePathURL.path)
+    }
+
+    init(highResolutionImageRemoteURL: URL, imageID: String, coverImageSize: CGSize) {
         self.imageID = imageID
+        self.coverImageSize = coverImageSize
 
         super.init()
 
@@ -38,6 +45,10 @@ class TileCacheManager: NSObject {
     private lazy var highResolutionImageLocalPathURL: URL? = {
         let highResComponent = "\(String(describing: imageID))_highResolutionImage"
         return urlPathByAppending(pathComponent: highResComponent)
+    }()
+
+    private lazy var coverImageTilePathURL: URL = {
+        return urlPathByAppending(pathComponent: "\(imageID)-coverImage")!
     }()
 
     private lazy var cacheDirectoryURL: URL? = {
@@ -82,6 +93,15 @@ class TileCacheManager: NSObject {
             strongSelf.moveItem(at: tempFileURL, to: localHighResImageURL)
         }
         task.resume()
+    }
+
+    private func cacheCoverImageTileIfNeeded(ofSize imageSize: CGSize) {
+        guard !fileExists(atPath: coverImageTilePathURL.path),
+            let highResolutionImage = highResolutionImage else { return }
+
+        guard let resizedImage = highResolutionImage.resizedImage(toSize: imageSize),
+            let imageData = UIImagePNGRepresentation(resizedImage) else { return }
+        store(imageData: imageData, toPathURL: coverImageTilePathURL)
     }
 
     private func setupCache() {

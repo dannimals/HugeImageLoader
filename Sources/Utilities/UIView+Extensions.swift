@@ -3,6 +3,19 @@ import UIKit
 
 extension UIView {
 
+    func constrainSizeToBounds(desiredSize: CGSize) -> CGSize {
+        let aspectRatio = desiredSize.width / desiredSize.height
+        let width = min(aspectRatio * bounds.height, bounds.width)
+        let height = min(width / aspectRatio, bounds.height)
+        return CGSize(width: width, height: height)
+    }
+
+    func constrainSizeToBounds(_ bounds: CGRect, aspectRatio: CGFloat) -> CGSize {
+        let width = min(aspectRatio * bounds.height, bounds.width)
+        let height = min(width / aspectRatio, bounds.height)
+        return CGSize(width: width, height: height)
+    }
+
     func centerFrame(viewToCenter: UIView) -> CGRect {
         let boundsSize = bounds.size
         var frameToCenter = viewToCenter.frame
