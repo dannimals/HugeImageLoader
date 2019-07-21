@@ -21,6 +21,10 @@ public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var hugeImageScrollView: HugeImageScrollView!
 
+    public var drawingView: UIView? {
+        return hugeImageScrollView.drawingContainerView
+    }
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
@@ -41,7 +45,7 @@ public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
         contentView.backgroundColor = .clear
     }
 
-    public func configure(highResolutionImageRemoteURL: URL, imageID: String, placeholderImage: UIImage, fullImageSize: CGSize, imageHasAlpha: Bool = true) {
+    public func load(highResolutionImageRemoteURL: URL, imageID: String, placeholderImage: UIImage, fullImageSize: CGSize, imageHasAlpha: Bool = true) {
         let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageID: imageID)
         tileCacheManager.delegate = self
         hugeImageScrollView.configure(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: imageHasAlpha, fullImageSize: fullImageSize)

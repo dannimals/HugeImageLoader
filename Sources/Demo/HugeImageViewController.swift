@@ -1,7 +1,7 @@
 
 import UIKit
 
-class HugeImageViewController: UIViewController {
+class HugeImageViewController: UIViewController, StoryboardLoadable {
 
     @IBOutlet weak var hugeImageView: HugeImageView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
@@ -10,14 +10,13 @@ class HugeImageViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .black
+    }
 
-        let url = URL(string: "https://www.nasa.gov/sites/default/files/images/529425main_pia13932-full_full.jpg")!
-        let placeholderImage = UIImage(named: "StarsGatherSmall")!
+    func load(imageURL: URL, placeholderImage: UIImage, imageSize: CGSize) {
         hugeImageView.delegate = self
         loadingIndicator.startAnimating()
-        let fullImageSize = CGSize(width: 6000,height: 3375)
 
-        hugeImageView.configure(highResolutionImageRemoteURL: url, imageID: "StarsGather", placeholderImage: placeholderImage, fullImageSize: fullImageSize)
+        hugeImageView.load(highResolutionImageRemoteURL: imageURL, imageID: "StarsGather", placeholderImage: placeholderImage, fullImageSize: imageSize)
     }
 
     private func stopLoading() {
