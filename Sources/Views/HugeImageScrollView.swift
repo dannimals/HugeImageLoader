@@ -16,7 +16,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
 
     private(set) var tilingView: TilingView!
     private var isZoomedToFit: Bool {
-        return zoomScaleToFit == zoomScale
+        return zoomScale == zoomScaleToFit
     }
     private var zoomScaleToFit: CGFloat {
         return min(bounds.size.width / placeholderImageSize.width, bounds.size.height / placeholderImageSize.height)
@@ -128,10 +128,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
     }
 
     private func zoomToFit(animated: Bool = true) {
-        let animationDuration: TimeInterval = animated ? Constant.animationDuration : 0
-        UIView.animate(withDuration: animationDuration) {
-            self.zoomScale = self.zoomScaleToFit
-        }
+        setZoomScale(zoomScaleToFit, animated: animated)
     }
 
     @objc
