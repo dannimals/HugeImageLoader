@@ -2,10 +2,12 @@
 import UIKit
 
 public enum HugeImageDownloadError: Error {
+
     case missingLocalCacheURL
     case failedToMoveItemToLocalCache
     case failedToDownloadItem(error: Error?)
     case failedToSetupLocalCache
+
 }
 
 public protocol HugeImageViewDelegate: class {

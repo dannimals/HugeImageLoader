@@ -48,7 +48,7 @@ class TileCacheManager: NSObject {
     }()
 
     private lazy var coverImageTilePathURL: URL = {
-        return urlPathByAppending(pathComponent: "\(imageID)-coverImage")!
+        return urlPathByAppending(pathComponent: "\(imageID)-coverImage-\(coverImageSize.width)x\(coverImageSize.height)")!
     }()
 
     private lazy var cacheDirectoryURL: URL? = {
@@ -135,4 +135,3 @@ class TileCacheManager: NSObject {
     }
 
 }
-

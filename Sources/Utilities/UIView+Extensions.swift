@@ -5,15 +5,20 @@ extension UIView {
 
     func constrainSizeToBounds(desiredSize: CGSize) -> CGSize {
         let aspectRatio = desiredSize.width / desiredSize.height
-        let width = min(aspectRatio * bounds.height, bounds.width)
-        let height = min(width / aspectRatio, bounds.height)
-        return CGSize(width: width, height: height)
-    }
+        let widthRatio  = desiredSize.width / bounds.width
+        let heightRatio = desiredSize.height / bounds.height
 
-    func constrainSizeToBounds(_ bounds: CGRect, aspectRatio: CGFloat) -> CGSize {
-        let width = min(aspectRatio * bounds.height, bounds.width)
-        let height = min(width / aspectRatio, bounds.height)
-        return CGSize(width: width, height: height)
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+        if widthRatio > heightRatio {
+            width = min(bounds.width, desiredSize.width)
+            height = width / aspectRatio
+        } else {
+            height = min(bounds.height, desiredSize.height)
+            width = height * aspectRatio
+        }
+        return CGSize(width: ceil(width), height: ceil(height))
+
     }
 
     func centerFrame(viewToCenter: UIView) -> CGRect {

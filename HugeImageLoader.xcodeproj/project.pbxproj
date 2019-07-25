@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9E39A8C322B8886D003E76EF /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39A8C222B8886D003E76EF /* UIImage+Extensions.swift */; };
 		9E39A8C522B88A0C003E76EF /* HugeImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E39A8C422B88A0C003E76EF /* HugeImageView.xib */; };
+		9E3A868322E9498F002CD2F2 /* CGSize+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A868222E9498F002CD2F2 /* CGSize+Additions.swift */; };
 		9E3CAF092158187400E44C8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF082158187400E44C8D /* AppDelegate.swift */; };
 		9E3CAF0B2158187400E44C8D /* HugeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF0A2158187400E44C8D /* HugeImageViewController.swift */; };
 		9E3CAF0E2158187400E44C8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3CAF0C2158187400E44C8D /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		9E39A8C222B8886D003E76EF /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		9E39A8C422B88A0C003E76EF /* HugeImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HugeImageView.xib; sourceTree = "<group>"; };
+		9E3A868222E9498F002CD2F2 /* CGSize+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Additions.swift"; sourceTree = "<group>"; };
 		9E3CAF052158187400E44C8D /* HugeImageLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HugeImageLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3CAF082158187400E44C8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E3CAF0A2158187400E44C8D /* HugeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HugeImageViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				9E39A8C222B8886D003E76EF /* UIImage+Extensions.swift */,
 				9E4B4FFA22C98A9700464D5E /* UIScrollView+Extensions.swift */,
 				9EBAF97122B6D964008F8228 /* UIView+Extensions.swift */,
+				9E3A868222E9498F002CD2F2 /* CGSize+Additions.swift */,
 				9E4B4FF822C96F4100464D5E /* ViewStylePreparing.swift */,
 			);
 			path = Utilities;
@@ -272,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E3A868322E9498F002CD2F2 /* CGSize+Additions.swift in Sources */,
 				9EBAF97422B6E469008F8228 /* DataCacheURL.swift in Sources */,
 				9E50F46D22E5002B00AA1C16 /* MainViewController.swift in Sources */,
 				9E50F46F22E500B000AA1C16 /* StoryboardLoadable.swift in Sources */,

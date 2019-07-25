@@ -66,8 +66,8 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
     private func setupTilingView(placeholderImage: UIImage, imageID: String, tileCacheManager: TileCacheManager, hasAlpha: Bool, coverImageAspectRatio: CGFloat) {
         removeTilingViewIfNeeded()
         let tileGenerator = TileGenerator(placeholderImage: placeholderImage, imageID: imageID, cacheManager: tileCacheManager)
-        let tilingViewFrame = CGRect(origin: .zero, size: placeholderImage.size) // FIXME: The size seems wrong
-        let coverImageSize = constrainSizeToBounds(tilingViewFrame, aspectRatio: coverImageAspectRatio)
+        let tilingViewFrame = CGRect(origin: .zero, size: placeholderImage.size)
+        let coverImageSize = placeholderImage.size.constrainedToAspectRatio(coverImageAspectRatio)
         tilingView = TilingView(frame: tilingViewFrame, tileGenerator: tileGenerator, hasAlpha: hasAlpha, coverImageSize: coverImageSize)
         addSubview(tilingView)
     }
