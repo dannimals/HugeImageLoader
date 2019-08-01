@@ -12,10 +12,15 @@ class HugeImageViewController: UIViewController, StoryboardLoadable {
         view.backgroundColor = .black
     }
 
+    func load(imageURL: URL, withOptions options: HugeImageOptions) {
+        hugeImageView.delegate = self
+        loadingIndicator.startAnimating()
+        hugeImageView.load(highResolutionImageRemoteURL: imageURL, withOptions: options)
+    }
+
     func load(imageURL: URL, placeholderImage: UIImage, imageSize: CGSize) {
         hugeImageView.delegate = self
         loadingIndicator.startAnimating()
-
         hugeImageView.load(highResolutionImageRemoteURL: imageURL, placeholderImage: placeholderImage, fullImageSize: imageSize)
     }
 
