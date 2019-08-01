@@ -10,10 +10,21 @@ public enum HugeImageDownloadError: Error {
 
 }
 
+public struct ImageCacheIdentifier {
+    let id: String
+}
+
 public protocol HugeImageViewDelegate: class {
 
     func hugeImageViewDidFinishDownloadingImage(_ hugeImageView: HugeImageView, result: Result<URL, HugeImageDownloadError>)
 
+}
+
+public struct HugeImageOptions {
+    let imageID: String?
+    let imageHasAlpha: Bool
+    let placeholderImage: UIImage?
+    let fullImageSize: CGSize
 }
 
 public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
@@ -48,13 +59,32 @@ public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
         contentView.backgroundColor = .clear
     }
 
-    public func load(highResolutionImageRemoteURL: URL, imageID: String, placeholderImage: UIImage, fullImageSize: CGSize, imageHasAlpha: Bool = true) {
+}
+
+extension HugeImageView {
+
+    public func load(highResolutionImageRemoteURL: URL, placeholderImage: UIImage, fullImageSize: CGSize) -> ImageCacheIdentifier {
         layoutIfNeeded()
         let coverImageSize = constrainSizeToBounds(desiredSize: fullImageSize)
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageID: imageID, coverImageSize: coverImageSize)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, coverImageSize: coverImageSize)
         tileCacheManager.delegate = self
-        hugeImageScrollView.configure(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: imageHasAlpha, fullImageSize: fullImageSize, coverImageSize: coverImageSize)
+        let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
+        hugeImageScrollView.configure(placeholderImage: placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: true,
+                                      fullImageSize: fullImageSize, coverImageSize: coverImageSize, imageCacheIdentifier: imageCacheIdentifier)
+        return imageCacheIdentifier
     }
+
+    // FIXME: Implement loading with options later
+//    public func load(highResolutionImageRemoteURL: URL, withOptions options: HugeImageOptions) -> ImageCacheIdentifier {
+//        layoutIfNeeded()
+//        let coverImageSize = constrainSizeToBounds(desiredSize: options.fullImageSize)
+//        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, coverImageSize: coverImageSize, imageID: options.imageID)
+//        tileCacheManager.delegate = self
+//        let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
+//        hugeImageScrollView.configure(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha,
+//                                      fullImageSize: options.fullImageSize, coverImageSize: coverImageSize, imageCacheIdentifier: imageCacheIdentifier)
+//        return imageCacheIdentifier
+//    }
 
 }
 

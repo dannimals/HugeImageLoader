@@ -16,7 +16,7 @@ class HugeImageViewController: UIViewController, StoryboardLoadable {
         hugeImageView.delegate = self
         loadingIndicator.startAnimating()
 
-        hugeImageView.load(highResolutionImageRemoteURL: imageURL, imageID: "StarsGather", placeholderImage: placeholderImage, fullImageSize: imageSize)
+        hugeImageView.load(highResolutionImageRemoteURL: imageURL, placeholderImage: placeholderImage, fullImageSize: imageSize)
     }
 
     private func stopLoading() {

@@ -5,11 +5,11 @@ class TileGenerator {
 
     private let placeholderImage: UIImage
     private let tileCacheManager: TileCacheManager
-    private let imageID: String
+    private let imageCacheIdentifier: ImageCacheIdentifier
 
-    init(placeholderImage: UIImage, imageID: String, cacheManager: TileCacheManager) {
+    init(placeholderImage: UIImage, cacheManager: TileCacheManager, imageCacheIdentifier: ImageCacheIdentifier) {
         self.placeholderImage = placeholderImage
-        self.imageID = imageID
+        self.imageCacheIdentifier = imageCacheIdentifier
         self.tileCacheManager = cacheManager
     }
 
@@ -22,7 +22,7 @@ class TileGenerator {
     }
 
     func tileFor(size: CGSize, scale: CGFloat, rect: CGRect, row: Int, col: Int) -> UIImage? {
-        let prefix = "\(imageID)_\(String(Int(scale * 1000)))"
+        let prefix = "\(imageCacheIdentifier.id)_\(String(Int(scale * 1000)))"
 
         guard let filePath = urlPathFor(prefix: prefix, row: row, col: col) else { return nil }
         guard !tileCacheManager.fileExists(atPath: filePath.path) else {

@@ -9,9 +9,9 @@ protocol TileCacheManagerDelegate: class {
 
 class TileCacheManager: NSObject {
 
+    private(set) var imageCacheIdentifier: ImageCacheIdentifier
     private let fileManager = FileManager.default
     private let tiledImagesPathName = "TiledImages"
-    private let imageID: String
     private let coverImageSize: CGSize
 
     weak var delegate: TileCacheManagerDelegate?
@@ -32,8 +32,8 @@ class TileCacheManager: NSObject {
         return UIImage(contentsOfFile: coverImageTilePathURL.path)
     }
 
-    init(highResolutionImageRemoteURL: URL, imageID: String, coverImageSize: CGSize) {
-        self.imageID = imageID
+    init(highResolutionImageRemoteURL: URL, coverImageSize: CGSize, imageID: String? = nil) {
+        self.imageCacheIdentifier = ImageCacheIdentifier(id: imageID ?? UUID().uuidString)
         self.coverImageSize = coverImageSize
 
         super.init()
@@ -43,12 +43,12 @@ class TileCacheManager: NSObject {
     }
 
     private lazy var highResolutionImageLocalPathURL: URL? = {
-        let highResComponent = "\(String(describing: imageID))_highResolutionImage"
+        let highResComponent = "\(String(describing: imageCacheIdentifier.id))_highResolutionImage"
         return urlPathByAppending(pathComponent: highResComponent)
     }()
 
     private lazy var coverImageTilePathURL: URL = {
-        return urlPathByAppending(pathComponent: "\(imageID)-coverImage-\(coverImageSize.width)x\(coverImageSize.height)")!
+        return urlPathByAppending(pathComponent: "\(imageCacheIdentifier.id)-coverImage-\(coverImageSize.width)x\(coverImageSize.height)")!
     }()
 
     private lazy var cacheDirectoryURL: URL? = {

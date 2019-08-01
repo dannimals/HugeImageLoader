@@ -51,21 +51,23 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
     }
 
     func configure(placeholderImage: UIImage,
-                   imageID: String,
                    tileCacheManager: TileCacheManager,
                    hasAlpha: Bool,
                    fullImageSize: CGSize,
-                   coverImageSize: CGSize) {
+                   coverImageSize: CGSize,
+                   imageCacheIdentifier: ImageCacheIdentifier) {
         self.placeholderImageSize = placeholderImage.size
         let coverImageAspectRatio = coverImageSize.width / coverImageSize.height
-        setupTilingView(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: hasAlpha, coverImageAspectRatio: coverImageAspectRatio)
+        setupTilingView(placeholderImage: placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: hasAlpha,
+                        coverImageAspectRatio: coverImageAspectRatio, imageCacheIdentifier: imageCacheIdentifier)
         layoutIfNeeded()
         setMaxMinZoomScale(forFileSize: fullImageSize)
     }
 
-    private func setupTilingView(placeholderImage: UIImage, imageID: String, tileCacheManager: TileCacheManager, hasAlpha: Bool, coverImageAspectRatio: CGFloat) {
+    private func setupTilingView(placeholderImage: UIImage, tileCacheManager: TileCacheManager, hasAlpha: Bool,
+                                 coverImageAspectRatio: CGFloat, imageCacheIdentifier: ImageCacheIdentifier) {
         removeTilingViewIfNeeded()
-        let tileGenerator = TileGenerator(placeholderImage: placeholderImage, imageID: imageID, cacheManager: tileCacheManager)
+        let tileGenerator = TileGenerator(placeholderImage: placeholderImage, cacheManager: tileCacheManager, imageCacheIdentifier: imageCacheIdentifier)
         let tilingViewFrame = CGRect(origin: .zero, size: placeholderImage.size)
         let coverImageSize = placeholderImage.size.constrainedToAspectRatio(coverImageAspectRatio)
         tilingView = TilingView(frame: tilingViewFrame, tileGenerator: tileGenerator, hasAlpha: hasAlpha, coverImageSize: coverImageSize)
