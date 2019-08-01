@@ -15,4 +15,23 @@ extension CGSize {
             return CGSize(width: targetWidth, height: ceil(height))
         }
     }
+
+    func constrainToSize(_ maxSize: CGSize) -> CGSize {
+        let aspectRatio = maxSize.width / maxSize.height
+        let widthRatio  = maxSize.width / width
+        let heightRatio = maxSize.height / height
+
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+        if widthRatio > heightRatio {
+            width = min(width, maxSize.width)
+            height = width / aspectRatio
+        } else {
+            height = min(height, maxSize.height)
+            width = height * aspectRatio
+        }
+        return CGSize(width: ceil(width), height: ceil(height))
+
+    }
+
 }

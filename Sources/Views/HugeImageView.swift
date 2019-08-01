@@ -67,7 +67,7 @@ extension HugeImageView {
     public func load(highResolutionImageRemoteURL: URL, placeholderImage: UIImage, fullImageSize: CGSize) -> ImageCacheIdentifier {
         layoutIfNeeded()
         let coverImageSize = constrainSizeToBounds(desiredSize: fullImageSize)
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, coverImageSize: coverImageSize)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size, coverImageSize: coverImageSize)
         tileCacheManager.delegate = self
         let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
         hugeImageScrollView.configure(placeholderImage: placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: true,
@@ -79,7 +79,7 @@ extension HugeImageView {
     public func load(highResolutionImageRemoteURL: URL, withOptions options: HugeImageOptions) -> ImageCacheIdentifier {
         layoutIfNeeded()
         let coverImageSize = constrainSizeToBounds(desiredSize: options.fullImageSize)
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, coverImageSize: coverImageSize, imageID: options.imageID)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size, coverImageSize: coverImageSize, imageID: options.imageID, placeholderImage: options.placeholderImage)
         tileCacheManager.delegate = self
         let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
         hugeImageScrollView.configure(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha,

@@ -12,7 +12,9 @@ class TileCacheManager: NSObject {
     private(set) var imageCacheIdentifier: ImageCacheIdentifier
     private let fileManager = FileManager.default
     private let tiledImagesPathName = "TiledImages"
-    private let coverImageSize: CGSize
+    private let _coverImageSize: CGSize?
+    private let placeholderImage: UIImage?
+    private let hugeImageViewSize: CGSize
 
     weak var delegate: TileCacheManagerDelegate?
 
@@ -27,14 +29,28 @@ class TileCacheManager: NSObject {
         return highResolutionImage
     }
 
-    var coverImage: UIImage? {
-        cacheCoverImageTileIfNeeded(ofSize: coverImageSize)
-        return UIImage(contentsOfFile: coverImageTilePathURL.path)
+    var coverImageSize: CGSize? {
+        return _coverImageSize ?? calculatedCoverImageSize
     }
 
-    init(highResolutionImageRemoteURL: URL, coverImageSize: CGSize, imageID: String? = nil) {
+    private var calculatedCoverImageSize: CGSize? {
+        guard let highResolutionImage = highResolutionImage else { return nil }
+        let maxSize = CGSize(width: highResolutionImage.width, height: highResolutionImage.height)
+        return hugeImageViewSize.constrainToSize(maxSize)
+    }
+
+    var coverImage: UIImage? {
+        guard let coverImageSize = coverImageSize else { return nil }
+
+        cacheCoverImageTileIfNeeded(ofSize: coverImageSize)
+        return UIImage(contentsOfFile: coverImageTilePathURL.path) ?? placeholderImage
+    }
+
+    init(highResolutionImageRemoteURL: URL, hugeImageViewSize: CGSize, coverImageSize: CGSize?, imageID: String? = nil, placeholderImage: UIImage? = nil) {
         self.imageCacheIdentifier = ImageCacheIdentifier(id: imageID ?? UUID().uuidString)
-        self.coverImageSize = coverImageSize
+        self.hugeImageViewSize = hugeImageViewSize
+        self._coverImageSize = coverImageSize
+        self.placeholderImage = placeholderImage
 
         super.init()
 
@@ -48,7 +64,7 @@ class TileCacheManager: NSObject {
     }()
 
     private lazy var coverImageTilePathURL: URL = {
-        return urlPathByAppending(pathComponent: "\(imageCacheIdentifier.id)-coverImage-\(coverImageSize.width)x\(coverImageSize.height)")!
+        return urlPathByAppending(pathComponent: "\(imageCacheIdentifier.id)-coverImage-\(hugeImageViewSize.width)x\(hugeImageViewSize.height)")!
     }()
 
     private lazy var cacheDirectoryURL: URL? = {

@@ -58,7 +58,7 @@ class TilingView: UIView {
         let scale: CGFloat = currentContext.ctm.a
 
         guard scale != 1.0 else {
-            tileGenerator.coverImage.draw(in: CGRect(origin: .zero, size: coverImageSize))
+            tileGenerator.coverImage?.draw(in: CGRect(origin: .zero, size: coverImageSize))
             return
         }
         var tileSize = self.tileSize
