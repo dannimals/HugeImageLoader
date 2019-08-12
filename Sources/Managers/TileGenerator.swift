@@ -6,13 +6,9 @@ class TileGenerator {
     private let tileCacheManager: TileCacheManager
     private let imageCacheIdentifier: ImageCacheIdentifier
 
-    init(cacheManager: TileCacheManager, imageCacheIdentifier: ImageCacheIdentifier) {
-        self.imageCacheIdentifier = imageCacheIdentifier
+    init(cacheManager: TileCacheManager) {
+        self.imageCacheIdentifier = cacheManager.imageCacheIdentifier
         self.tileCacheManager = cacheManager
-    }
-
-    private func urlPathFor(prefix: String, row: Int, col: Int) -> URL? {
-        return tileCacheManager.urlPathByAppending(pathComponent: "\(prefix)-\(row)-\(col)")
     }
 
     var coverImage: UIImage? {
@@ -22,7 +18,7 @@ class TileGenerator {
     func tileFor(size: CGSize, scale: CGFloat, rect: CGRect, row: Int, col: Int) -> UIImage? {
         let prefix = "\(imageCacheIdentifier.id)_\(String(Int(scale * 1000)))"
 
-        guard let filePath = urlPathFor(prefix: prefix, row: row, col: col) else { return nil }
+        guard let filePath = tileCacheManager.urlPathFor(prefix: prefix, row: row, col: col) else { return nil }
         guard !tileCacheManager.fileExists(atPath: filePath.path) else {
             return UIImage(contentsOfFile: filePath.path)
         }
@@ -57,7 +53,7 @@ class TileGenerator {
         guard
             let tileImage = image.cropping(to: rect),
             let imageData = UIImagePNGRepresentation(UIImage(cgImage: tileImage)),
-            let pathURL = urlPathFor(prefix: prefix, row: row, col: col) else { return }
+            let pathURL = tileCacheManager.urlPathFor(prefix: prefix, row: row, col: col) else { return }
         tileCacheManager.store(imageData: imageData, toPathURL: pathURL)
     }
 

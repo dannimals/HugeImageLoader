@@ -78,7 +78,7 @@ extension HugeImageView {
     @discardableResult
     public func load(highResolutionImageRemoteURL: URL, withOptions options: HugeImageOptions) -> ImageCacheIdentifier {
         layoutIfNeeded()
-        let coverImageSize = constrainSizeToBounds(desiredSize: options.fullImageSize)
+        let coverImageSize = options.placeholderImage.size
         let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size, coverImageSize: coverImageSize, imageID: options.imageID, placeholderImage: options.placeholderImage)
         tileCacheManager.delegate = self
         let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
