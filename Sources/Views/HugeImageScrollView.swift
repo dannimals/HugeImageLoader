@@ -21,7 +21,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
     private var zoomScaleToFit: CGFloat {
         return min(bounds.size.width / placeholderImageSize.width, bounds.size.height / placeholderImageSize.height)
     }
-    private var placeholderImageSize: CGSize = CGSize(width: 1, height: 1)
+    private var placeholderImageSize: CGSize = .zero
 
     private var placeholderImage: UIImage?
     private(set) var doubleTapGestureRecognizer: UITapGestureRecognizer!
@@ -50,27 +50,26 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
         centerImageView()
     }
 
-    func configure(placeholderImage: UIImage,
-                   tileCacheManager: TileCacheManager,
-                   hasAlpha: Bool,
-                   fullImageSize: CGSize,
-                   coverImageSize: CGSize,
-                   imageCacheIdentifier: ImageCacheIdentifier) {
-        self.placeholderImageSize = placeholderImage.size
-        let coverImageAspectRatio = coverImageSize.width / coverImageSize.height
-        setupTilingView(placeholderImage: placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: hasAlpha,
-                        coverImageAspectRatio: coverImageAspectRatio, imageCacheIdentifier: imageCacheIdentifier)
-        layoutIfNeeded()
-        setMaxMinZoomScale(forFileSize: fullImageSize)
+    func configure(tileCacheManager: TileCacheManager,
+                   imageCacheIdentifier: ImageCacheIdentifier,
+                   options: HugeImageOptions? = nil) {
+        removeTilingViewIfNeeded()
+        if let options = options {
+            self.placeholderImageSize = options.placeholderImage.size
+            let coverImageAspectRatio = options.placeholderImage.size.width / options.placeholderImage.size.height
+            setupTilingView(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha,
+                            coverImageAspectRatio: coverImageAspectRatio, imageCacheIdentifier: imageCacheIdentifier)
+            layoutIfNeeded()
+            setMaxMinZoomScale(forFileSize: options.fullImageSize)
+        }
     }
 
     private func setupTilingView(placeholderImage: UIImage, tileCacheManager: TileCacheManager, hasAlpha: Bool,
                                  coverImageAspectRatio: CGFloat, imageCacheIdentifier: ImageCacheIdentifier) {
-        removeTilingViewIfNeeded()
         let tileGenerator = TileGenerator(cacheManager: tileCacheManager)
         let tilingViewFrame = CGRect(origin: .zero, size: placeholderImage.size)
-        let coverImageSize = placeholderImage.size.constrainedToAspectRatio(coverImageAspectRatio)
-        tilingView = TilingView(frame: tilingViewFrame, tileGenerator: tileGenerator, hasAlpha: hasAlpha, coverImageSize: coverImageSize)
+        tilingView = TilingView(frame: .zero, tileGenerator: tileGenerator, hasAlpha: hasAlpha, coverImageSize: placeholderImage.size)
+        tilingView.frame = tilingViewFrame
         addSubview(tilingView)
     }
 

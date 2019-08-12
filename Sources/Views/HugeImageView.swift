@@ -64,26 +64,22 @@ public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
 extension HugeImageView {
 
     @discardableResult
-    public func load(highResolutionImageRemoteURL: URL, placeholderImage: UIImage, fullImageSize: CGSize) -> ImageCacheIdentifier {
+    public func load(highResolutionImageRemoteURL: URL) -> ImageCacheIdentifier {
         layoutIfNeeded()
-        let coverImageSize = constrainSizeToBounds(desiredSize: fullImageSize)
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size, coverImageSize: coverImageSize)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size)
         tileCacheManager.delegate = self
         let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
-        hugeImageScrollView.configure(placeholderImage: placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: true,
-                                      fullImageSize: fullImageSize, coverImageSize: coverImageSize, imageCacheIdentifier: imageCacheIdentifier)
+        hugeImageScrollView.configure(tileCacheManager: tileCacheManager, imageCacheIdentifier: imageCacheIdentifier)
         return imageCacheIdentifier
     }
 
     @discardableResult
     public func load(highResolutionImageRemoteURL: URL, withOptions options: HugeImageOptions) -> ImageCacheIdentifier {
         layoutIfNeeded()
-        let coverImageSize = options.placeholderImage.size
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size, coverImageSize: coverImageSize, imageID: options.imageID, placeholderImage: options.placeholderImage)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size, options: options)
         tileCacheManager.delegate = self
         let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
-        hugeImageScrollView.configure(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha,
-                                      fullImageSize: options.fullImageSize, coverImageSize: coverImageSize, imageCacheIdentifier: imageCacheIdentifier)
+        hugeImageScrollView.configure(tileCacheManager: tileCacheManager, imageCacheIdentifier: imageCacheIdentifier, options: options)
         return imageCacheIdentifier
     }
 

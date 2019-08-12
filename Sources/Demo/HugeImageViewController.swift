@@ -18,10 +18,10 @@ class HugeImageViewController: UIViewController, StoryboardLoadable {
         hugeImageView.load(highResolutionImageRemoteURL: imageURL, withOptions: options)
     }
 
-    func load(imageURL: URL, placeholderImage: UIImage, imageSize: CGSize) {
+    func load(imageURL: URL) {
         hugeImageView.delegate = self
         loadingIndicator.startAnimating()
-        hugeImageView.load(highResolutionImageRemoteURL: imageURL, placeholderImage: placeholderImage, fullImageSize: imageSize)
+        hugeImageView.load(highResolutionImageRemoteURL: imageURL)
     }
 
     private func stopLoading() {

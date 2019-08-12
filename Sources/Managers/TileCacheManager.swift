@@ -62,11 +62,14 @@ class TileCacheManager: NSObject {
         return hugeImageViewSize.constrainToSize(maxSize)
     }
 
-    init(highResolutionImageRemoteURL: URL, hugeImageViewSize: CGSize, coverImageSize: CGSize?, imageID: String? = nil, placeholderImage: UIImage? = nil, downloadManager: DownloadManaging? = nil) {
-        self.imageCacheIdentifier = ImageCacheIdentifier(id: imageID ?? UUID().uuidString)
+    init(highResolutionImageRemoteURL: URL,
+         hugeImageViewSize: CGSize,
+         options: HugeImageOptions? = nil,
+         downloadManager: DownloadManaging? = nil) {
+        self.imageCacheIdentifier = ImageCacheIdentifier(id: options?.imageID ?? UUID().uuidString)
         self.hugeImageViewSize = hugeImageViewSize
-        self._coverImageSize = coverImageSize
-        self.placeholderImage = placeholderImage
+        self._coverImageSize = options?.placeholderImage.size
+        self.placeholderImage = options?.placeholderImage
         self.downloadManager = downloadManager ?? DownloadManager()
 
         super.init()
