@@ -89,6 +89,7 @@ extension HugeImageView: TileCacheManagerDelegate {
 
     func tileCacheManagerDidFinishDownloadingHighResolutionImage(_ tileCacheManager: TileCacheManager, withResult result: Result<URL, HugeImageDownloadError>) {
         DispatchQueue.main.async {
+            self.hugeImageScrollView.reloadTilingViewIfNeeded()
             self.delegate?.hugeImageViewDidFinishDownloadingImage(self, result: result)
         }
     }

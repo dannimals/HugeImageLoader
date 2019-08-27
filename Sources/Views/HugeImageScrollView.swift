@@ -18,7 +18,9 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
                                                      bounds.size.height / placeholderImageSize.height) }
     private var placeholderImageSize: CGSize = .zero
     private var placeholderImage: UIImage?
+    private var tileCacheManager: TileCacheManager!
     private(set) var doubleTapGestureRecognizer: UITapGestureRecognizer!
+    private var shouldReloadTilingView = false
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -48,6 +50,8 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
                    imageCacheIdentifier: ImageCacheIdentifier,
                    options: HugeImageOptions? = nil) {
         removeTilingViewIfNeeded()
+        self.tileCacheManager = tileCacheManager
+        shouldReloadTilingView = options == nil
         guard let options = options else { return }
         self.placeholderImageSize = options.placeholderImage.size
         let coverImageAspectRatio = options.placeholderImage.size.width / options.placeholderImage.size.height
@@ -55,6 +59,19 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
                         coverImageAspectRatio: coverImageAspectRatio, imageCacheIdentifier: imageCacheIdentifier)
         layoutIfNeeded()
         setMaxMinZoomScale(forFileSize: options.fullImageSize)
+    }
+
+    func reloadTilingViewIfNeeded() {
+        // FIXME: Need a more sophisticated check tp ensure downloaded image in tile manager is the right image
+        guard shouldReloadTilingView else { return }
+        let tileGenerator = TileGenerator(cacheManager: tileCacheManager)
+        guard let coverImage = tileGenerator.coverImage else { return }
+        let tilingViewFrame = CGRect(origin: .zero, size: coverImage.size)
+        tilingView = TilingView(frame: .zero, tileGenerator: tileGenerator, hasAlpha: true, coverImageSize: coverImage.size)
+        tilingView.frame = tilingViewFrame
+        addSubview(tilingView)
+        layoutIfNeeded()
+        setMaxMinZoomScale(forFileSize: tileGenerator.fullImageSize)
     }
 
     private func setupTilingView(placeholderImage: UIImage, tileCacheManager: TileCacheManager, hasAlpha: Bool,

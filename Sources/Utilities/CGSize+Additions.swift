@@ -17,21 +17,17 @@ extension CGSize {
     }
 
     func constrainToSize(_ maxSize: CGSize) -> CGSize {
-        let aspectRatio = maxSize.width / maxSize.height
-        let widthRatio  = maxSize.width / width
-        let heightRatio = maxSize.height / height
-
-        var width: CGFloat = 0
-        var height: CGFloat = 0
-        if widthRatio > heightRatio {
-            width = min(width, maxSize.width)
-            height = width / aspectRatio
+        let aspectRatio = width / height
+        var adjustedWidth: CGFloat = 0
+        var adjustedHeight: CGFloat = 0
+        if width > height {
+            adjustedWidth = min(width, maxSize.width)
+            adjustedHeight = adjustedWidth / aspectRatio
         } else {
-            height = min(height, maxSize.height)
-            width = height * aspectRatio
+            adjustedHeight = min(height, maxSize.height)
+            adjustedWidth = adjustedHeight * aspectRatio
         }
-        return CGSize(width: ceil(width), height: ceil(height))
-
+        return CGSize(width: ceil(adjustedWidth), height: ceil(adjustedHeight))
     }
 
 }

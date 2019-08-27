@@ -6,13 +6,12 @@ class TileGenerator {
     private let tileCacheManager: TileCacheManager
     private let imageCacheIdentifier: ImageCacheIdentifier
 
+    var coverImage: UIImage? { return tileCacheManager.coverImage }
+    var fullImageSize: CGSize { return tileCacheManager.fullImageSize }
+
     init(cacheManager: TileCacheManager) {
         self.imageCacheIdentifier = cacheManager.imageCacheIdentifier
         self.tileCacheManager = cacheManager
-    }
-
-    var coverImage: UIImage? {
-        return tileCacheManager.coverImage
     }
 
     func tileFor(size: CGSize, scale: CGFloat, rect: CGRect, row: Int, col: Int) -> UIImage? {

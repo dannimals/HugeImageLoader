@@ -27,39 +27,35 @@ class TileCacheManager: NSObject {
             let highResolutionImage = CGImage(jpegDataProviderSource: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent) ??
                     CGImage(pngDataProviderSource: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent)
             else { return nil }
-
         return highResolutionImage
     }
-
-    var coverImageSize: CGSize? {
-        return _coverImageSize ?? calculatedCoverImageSize
-    }
-
+    var coverImageSize: CGSize? { return _coverImageSize ?? calculatedCoverImageSize }
     var coverImage: UIImage? {
         guard let coverImageSize = coverImageSize else { return nil }
-
         cacheCoverImageTileIfNeeded(ofSize: coverImageSize)
         return UIImage(contentsOfFile: coverImageTilePathURL.path) ?? placeholderImage
+    }
+    var fullImageSize: CGSize {
+        guard let highResolutionImage = highResolutionImage else { return .zero }
+        return CGSize(width: highResolutionImage.width, height: highResolutionImage.height)
     }
 
     private lazy var highResolutionImageLocalPathURL: URL? = {
         let highResComponent = "\(String(describing: imageCacheIdentifier.id))_highResolutionImage"
         return urlPathByAppending(pathComponent: highResComponent)
     }()
-
     private lazy var coverImageTilePathURL: URL = {
         return urlPathByAppending(pathComponent: "\(imageCacheIdentifier.id)-coverImage-\(hugeImageViewSize.width)x\(hugeImageViewSize.height)")!
     }()
-
     private lazy var cacheDirectoryURL: URL? = {
         let cacheDirectoryURL = DataCacheURL.dataCacheDirectoryURL(identifier: "HugeImageLoaderUser")
         return cacheDirectoryURL?.appendingPathComponent("TiledImages")
     }()
-
     private var calculatedCoverImageSize: CGSize? {
         guard let highResolutionImage = highResolutionImage else { return nil }
         let maxSize = CGSize(width: highResolutionImage.width, height: highResolutionImage.height)
-        return hugeImageViewSize.constrainToSize(maxSize)
+        // FIXME: hugeImageViewSize refers to the size of the huge image bounds, which is confusing
+        return maxSize.constrainToSize(hugeImageViewSize)
     }
 
     init(highResolutionImageRemoteURL: URL,
@@ -134,7 +130,6 @@ extension TileCacheManager: DownloadManagerDelegate {
             delegate?.tileCacheManagerDidFinishDownloadingHighResolutionImage(self, withResult: result)
             return
         }
-
         guard let highResolutionImageLocalPathURL = highResolutionImageLocalPathURL else {
             delegate?.tileCacheManagerDidFinishDownloadingHighResolutionImage(self, withResult: .failure(.failedToSetupLocalCache))
             return

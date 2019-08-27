@@ -20,4 +20,4 @@ class MainViewController: UIViewController, StoryboardLoadable {
         hugeImageViewController.load(imageURL: imageURL, withOptions: hugeImageOptions)
     }
 
-}
+} 
