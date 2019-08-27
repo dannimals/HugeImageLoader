@@ -54,9 +54,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
         shouldReloadTilingView = options == nil
         guard let options = options else { return }
         self.placeholderImageSize = options.placeholderImage.size
-        let coverImageAspectRatio = options.placeholderImage.size.width / options.placeholderImage.size.height
-        setupTilingView(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha,
-                        coverImageAspectRatio: coverImageAspectRatio, imageCacheIdentifier: imageCacheIdentifier)
+        setupTilingView(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha, imageCacheIdentifier: imageCacheIdentifier)
         layoutIfNeeded()
         setMaxMinZoomScale(forFileSize: options.fullImageSize)
     }
@@ -66,6 +64,8 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
         guard shouldReloadTilingView else { return }
         let tileGenerator = TileGenerator(cacheManager: tileCacheManager)
         guard let coverImage = tileGenerator.coverImage else { return }
+        shouldReloadTilingView = false
+        placeholderImageSize = coverImage.size
         let tilingViewFrame = CGRect(origin: .zero, size: coverImage.size)
         tilingView = TilingView(frame: .zero, tileGenerator: tileGenerator, hasAlpha: true, coverImageSize: coverImage.size)
         tilingView.frame = tilingViewFrame
@@ -75,7 +75,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
     }
 
     private func setupTilingView(placeholderImage: UIImage, tileCacheManager: TileCacheManager, hasAlpha: Bool,
-                                 coverImageAspectRatio: CGFloat, imageCacheIdentifier: ImageCacheIdentifier) {
+                                 imageCacheIdentifier: ImageCacheIdentifier) {
         let tileGenerator = TileGenerator(cacheManager: tileCacheManager)
         let tilingViewFrame = CGRect(origin: .zero, size: placeholderImage.size)
         tilingView = TilingView(frame: .zero, tileGenerator: tileGenerator, hasAlpha: hasAlpha, coverImageSize: placeholderImage.size)

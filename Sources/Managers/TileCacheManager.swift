@@ -54,8 +54,11 @@ class TileCacheManager: NSObject {
     private var calculatedCoverImageSize: CGSize? {
         guard let highResolutionImage = highResolutionImage else { return nil }
         let maxSize = CGSize(width: highResolutionImage.width, height: highResolutionImage.height)
+        return maxSize
         // FIXME: hugeImageViewSize refers to the size of the huge image bounds, which is confusing
         return maxSize.constrainToSize(hugeImageViewSize)
+        // FIXME: Returning the original cover image size works
+//        return CGSize(width: 1400, height: 788)
     }
 
     init(highResolutionImageRemoteURL: URL,

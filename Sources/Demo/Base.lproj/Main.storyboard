@@ -56,7 +56,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pae-2u-qU2" customClass="HugeImageView" customModule="HugeImageLoader" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSw-UA-GnR">
                                 <rect key="frame" x="16" y="60" width="39" height="30"/>
@@ -71,13 +71,13 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Fx3-T5-StO" firstAttribute="bottom" secondItem="pae-2u-qU2" secondAttribute="bottom" id="64t-57-2SR"/>
+                            <constraint firstAttribute="bottom" secondItem="pae-2u-qU2" secondAttribute="bottom" id="64t-57-2SR"/>
                             <constraint firstItem="NSw-UA-GnR" firstAttribute="top" secondItem="Fx3-T5-StO" secondAttribute="top" constant="16" id="Dbw-Vu-EZo"/>
                             <constraint firstItem="NSw-UA-GnR" firstAttribute="leading" secondItem="Fx3-T5-StO" secondAttribute="leading" constant="16" id="Dwt-N6-mpx"/>
-                            <constraint firstItem="pae-2u-qU2" firstAttribute="leading" secondItem="Fx3-T5-StO" secondAttribute="leading" id="MeW-zR-MwL"/>
+                            <constraint firstItem="pae-2u-qU2" firstAttribute="leading" secondItem="nee-fu-ihk" secondAttribute="leading" id="MeW-zR-MwL"/>
                             <constraint firstItem="LYV-0f-8yT" firstAttribute="centerY" secondItem="Fx3-T5-StO" secondAttribute="centerY" id="RRj-i0-PtT"/>
-                            <constraint firstItem="pae-2u-qU2" firstAttribute="top" secondItem="Fx3-T5-StO" secondAttribute="top" id="dU0-Kl-ZtK"/>
-                            <constraint firstItem="Fx3-T5-StO" firstAttribute="trailing" secondItem="pae-2u-qU2" secondAttribute="trailing" id="nHL-F0-kqR"/>
+                            <constraint firstItem="pae-2u-qU2" firstAttribute="top" secondItem="nee-fu-ihk" secondAttribute="top" id="dU0-Kl-ZtK"/>
+                            <constraint firstAttribute="trailing" secondItem="pae-2u-qU2" secondAttribute="trailing" id="nHL-F0-kqR"/>
                             <constraint firstItem="LYV-0f-8yT" firstAttribute="centerX" secondItem="Fx3-T5-StO" secondAttribute="centerX" id="xqb-Uf-YCF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Fx3-T5-StO"/>
