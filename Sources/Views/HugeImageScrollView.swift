@@ -9,20 +9,14 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
         static let animationDuration: TimeInterval = 0.2
     }
 
-    var drawingContainerView: UIView? {
-        return tilingView
-    }
+    var drawingContainerView: UIView? { return tilingView }
     var viewForZooming: UIView { return tilingView }
 
     private(set) var tilingView: TilingView!
-    private var isZoomedToFit: Bool {
-        return zoomScale == zoomScaleToFit
-    }
-    private var zoomScaleToFit: CGFloat {
-        return min(bounds.size.width / placeholderImageSize.width, bounds.size.height / placeholderImageSize.height)
-    }
+    private var isZoomedToFit: Bool { return zoomScale == zoomScaleToFit }
+    private var zoomScaleToFit: CGFloat { return min(bounds.size.width / placeholderImageSize.width,
+                                                     bounds.size.height / placeholderImageSize.height) }
     private var placeholderImageSize: CGSize = .zero
-
     private var placeholderImage: UIImage?
     private(set) var doubleTapGestureRecognizer: UITapGestureRecognizer!
 
@@ -54,14 +48,13 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
                    imageCacheIdentifier: ImageCacheIdentifier,
                    options: HugeImageOptions? = nil) {
         removeTilingViewIfNeeded()
-        if let options = options {
-            self.placeholderImageSize = options.placeholderImage.size
-            let coverImageAspectRatio = options.placeholderImage.size.width / options.placeholderImage.size.height
-            setupTilingView(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha,
-                            coverImageAspectRatio: coverImageAspectRatio, imageCacheIdentifier: imageCacheIdentifier)
-            layoutIfNeeded()
-            setMaxMinZoomScale(forFileSize: options.fullImageSize)
-        }
+        guard let options = options else { return }
+        self.placeholderImageSize = options.placeholderImage.size
+        let coverImageAspectRatio = options.placeholderImage.size.width / options.placeholderImage.size.height
+        setupTilingView(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha,
+                        coverImageAspectRatio: coverImageAspectRatio, imageCacheIdentifier: imageCacheIdentifier)
+        layoutIfNeeded()
+        setMaxMinZoomScale(forFileSize: options.fullImageSize)
     }
 
     private func setupTilingView(placeholderImage: UIImage, tileCacheManager: TileCacheManager, hasAlpha: Bool,
