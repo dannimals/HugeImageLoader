@@ -15,7 +15,7 @@ class TileCacheManager: NSObject {
     private let tiledImagesPathName = "TiledImages"
     private let _coverImageSize: CGSize?
     private let placeholderImage: UIImage?
-    private let hugeImageViewSize: CGSize
+    private let imageViewSize: CGSize
     private var downloadManager: DownloadManaging
 
     weak var delegate: TileCacheManagerDelegate?
@@ -45,7 +45,7 @@ class TileCacheManager: NSObject {
         return urlPathByAppending(pathComponent: highResComponent)
     }()
     private lazy var coverImageTilePathURL: URL = {
-        return urlPathByAppending(pathComponent: "\(imageCacheIdentifier.id)-coverImage-\(hugeImageViewSize.width)x\(hugeImageViewSize.height)")!
+        return urlPathByAppending(pathComponent: "\(imageCacheIdentifier.id)-coverImage-\(imageViewSize.width)x\(imageViewSize.height)")!
     }()
     private lazy var cacheDirectoryURL: URL? = {
         let cacheDirectoryURL = DataCacheURL.dataCacheDirectoryURL(identifier: "HugeImageLoaderUser")
@@ -53,20 +53,18 @@ class TileCacheManager: NSObject {
     }()
     private var calculatedCoverImageSize: CGSize? {
         guard let highResolutionImage = highResolutionImage else { return nil }
-        let maxSize = CGSize(width: highResolutionImage.width, height: highResolutionImage.height)
-        return maxSize
-        // FIXME: hugeImageViewSize refers to the size of the huge image bounds, which is confusing
-        return maxSize.constrainToSize(hugeImageViewSize)
-        // FIXME: Returning the original cover image size works
-//        return CGSize(width: 1400, height: 788)
+        let fullImageSize = CGSize(width: highResolutionImage.width, height: highResolutionImage.height)
+        let scale = ceil(max(2, min(3, fullImageSize.width / imageViewSize.width)))
+        let size = CGSize(width: imageViewSize.width * scale, height: imageViewSize.height * scale)
+        return fullImageSize.constrainToSize(size)
     }
 
     init(highResolutionImageRemoteURL: URL,
-         hugeImageViewSize: CGSize,
+         imageViewSize: CGSize,
          options: HugeImageOptions? = nil,
          downloadManager: DownloadManaging? = nil) {
         self.imageCacheIdentifier = ImageCacheIdentifier(id: options?.imageID ?? UUID().uuidString)
-        self.hugeImageViewSize = hugeImageViewSize
+        self.imageViewSize = imageViewSize
         self._coverImageSize = options?.placeholderImage.size
         self.placeholderImage = options?.placeholderImage
         self.downloadManager = downloadManager ?? DownloadManager()

@@ -66,7 +66,7 @@ extension HugeImageView {
     @discardableResult
     public func load(highResolutionImageRemoteURL: URL) -> ImageCacheIdentifier {
         layoutIfNeeded()
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageViewSize: bounds.size)
         tileCacheManager.delegate = self
         let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
         hugeImageScrollView.configure(tileCacheManager: tileCacheManager, imageCacheIdentifier: imageCacheIdentifier)
@@ -76,7 +76,7 @@ extension HugeImageView {
     @discardableResult
     public func load(highResolutionImageRemoteURL: URL, withOptions options: HugeImageOptions) -> ImageCacheIdentifier {
         layoutIfNeeded()
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, hugeImageViewSize: bounds.size, options: options)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageViewSize: bounds.size, options: options)
         tileCacheManager.delegate = self
         let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
         hugeImageScrollView.configure(tileCacheManager: tileCacheManager, imageCacheIdentifier: imageCacheIdentifier, options: options)

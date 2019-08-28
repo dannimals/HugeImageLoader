@@ -56,7 +56,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
         self.placeholderImageSize = options.placeholderImage.size
         setupTilingView(placeholderImage: options.placeholderImage, tileCacheManager: tileCacheManager, hasAlpha: options.imageHasAlpha, imageCacheIdentifier: imageCacheIdentifier)
         layoutIfNeeded()
-        setMaxMinZoomScale(forFileSize: options.fullImageSize)
+        setMinMaxZoomScale(forFileSize: options.fullImageSize)
     }
 
     func reloadTilingViewIfNeeded() {
@@ -71,7 +71,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
         tilingView.frame = tilingViewFrame
         addSubview(tilingView)
         layoutIfNeeded()
-        setMaxMinZoomScale(forFileSize: tileGenerator.fullImageSize)
+        setMinMaxZoomScale(forFileSize: tileGenerator.fullImageSize)
     }
 
     private func setupTilingView(placeholderImage: UIImage, tileCacheManager: TileCacheManager, hasAlpha: Bool,
@@ -114,7 +114,7 @@ class HugeImageScrollView: UIScrollView, ViewStylePreparing {
         addGestureRecognizer(doubleTapGestureRecognizer)
     }
 
-    private func setMaxMinZoomScale(forFileSize fileSize: CGSize) {
+    private func setMinMaxZoomScale(forFileSize fileSize: CGSize) {
         let bounds = UIScreen.main.bounds
         maximumZoomScale = calculateMaximumZoomScale(forFileSize: fileSize)
         minimumZoomScale = 0.125

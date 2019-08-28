@@ -71,7 +71,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="pae-2u-qU2" secondAttribute="bottom" id="64t-57-2SR"/>
+                            <constraint firstItem="pae-2u-qU2" firstAttribute="bottom" secondItem="nee-fu-ihk" secondAttribute="bottom" id="64t-57-2SR"/>
                             <constraint firstItem="NSw-UA-GnR" firstAttribute="top" secondItem="Fx3-T5-StO" secondAttribute="top" constant="16" id="Dbw-Vu-EZo"/>
                             <constraint firstItem="NSw-UA-GnR" firstAttribute="leading" secondItem="Fx3-T5-StO" secondAttribute="leading" constant="16" id="Dwt-N6-mpx"/>
                             <constraint firstItem="pae-2u-qU2" firstAttribute="leading" secondItem="nee-fu-ihk" secondAttribute="leading" id="MeW-zR-MwL"/>

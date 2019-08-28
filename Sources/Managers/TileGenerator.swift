@@ -27,15 +27,17 @@ class TileGenerator {
             optimalImage = tileCacheManager.highResolutionImage ?? coverImage?.cgImage
         }
 
-        guard let cgImage = optimalImage,
-            let mappedRect = mappedRectForImage(cgImage, rect: rect) else { return nil }
-
-        saveTile(forImage: cgImage, tileSize: size, rect: mappedRect, prefix: prefix, row: row, col: col)
+        guard let cgImage = optimalImage else { return nil }
+        var tileRect = scaledRectForImage(cgImage, rect: rect)
+        if scale * 1000 <= 1000 {
+            tileRect = rect
+        }
+        saveTile(forImage: cgImage, tileSize: size, rect: tileRect, prefix: prefix, row: row, col: col)
         return UIImage(contentsOfFile: filePath.path)
     }
 
-    private func mappedRectForImage(_ mappedImage: CGImage, rect: CGRect) -> CGRect? {
-        guard let coverImageSize = tileCacheManager.coverImageSize else { return nil }
+    private func scaledRectForImage(_ mappedImage: CGImage, rect: CGRect) -> CGRect {
+        guard let coverImageSize = tileCacheManager.coverImageSize else { return .zero }
 
         let scaleX = CGFloat(mappedImage.width) / coverImageSize.width
         let scaleY = CGFloat(mappedImage.height) / coverImageSize.height
