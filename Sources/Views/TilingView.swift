@@ -37,10 +37,9 @@ class TilingView: UIView {
         tiledLayer.levelsOfDetail = levelsOfDetail
         tiledLayer.levelsOfDetailBias = levelsOfDetailBias
         tiledLayer.tileSize = tileSize
+        tiledLayer.isOpaque = hasAlpha
 
-        guard hasAlpha, let checkerboard = UIImage.checkerboard else { return }
-
-        tiledLayer.isOpaque = false
+        guard !hasAlpha, let checkerboard = UIImage.checkerboard else { return }
         tiledLayer.backgroundColor = UIColor(patternImage: checkerboard).cgColor
     }
 
@@ -58,7 +57,7 @@ class TilingView: UIView {
         let scale: CGFloat = currentContext.ctm.a
 
         guard scale != 1.0 else {
-            tileGenerator.coverImage.draw(in: CGRect(origin: .zero, size: coverImageSize))
+            tileGenerator.coverImage?.draw(in: CGRect(origin: .zero, size: coverImageSize))
             return
         }
         var tileSize = self.tileSize

@@ -10,10 +10,21 @@ public enum HugeImageDownloadError: Error {
 
 }
 
+public struct ImageCacheIdentifier {
+    let id: String
+}
+
 public protocol HugeImageViewDelegate: class {
 
     func hugeImageViewDidFinishDownloadingImage(_ hugeImageView: HugeImageView, result: Result<URL, HugeImageDownloadError>)
 
+}
+
+public struct HugeImageOptions {
+    let imageID: String?
+    let imageHasAlpha: Bool
+    let placeholderImage: UIImage
+    let fullImageSize: CGSize
 }
 
 public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
@@ -48,12 +59,28 @@ public class HugeImageView: UIView, StoryboardNestable, ViewStylePreparing {
         contentView.backgroundColor = .clear
     }
 
-    public func load(highResolutionImageRemoteURL: URL, imageID: String, placeholderImage: UIImage, fullImageSize: CGSize, imageHasAlpha: Bool = true) {
+}
+
+extension HugeImageView {
+
+    @discardableResult
+    public func load(highResolutionImageRemoteURL: URL) -> ImageCacheIdentifier {
         layoutIfNeeded()
-        let coverImageSize = constrainSizeToBounds(desiredSize: fullImageSize)
-        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageID: imageID, coverImageSize: coverImageSize)
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageViewSize: bounds.size)
         tileCacheManager.delegate = self
-        hugeImageScrollView.configure(placeholderImage: placeholderImage, imageID: imageID, tileCacheManager: tileCacheManager, hasAlpha: imageHasAlpha, fullImageSize: fullImageSize, coverImageSize: coverImageSize)
+        let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
+        hugeImageScrollView.configure(tileCacheManager: tileCacheManager, imageCacheIdentifier: imageCacheIdentifier)
+        return imageCacheIdentifier
+    }
+
+    @discardableResult
+    public func load(highResolutionImageRemoteURL: URL, withOptions options: HugeImageOptions) -> ImageCacheIdentifier {
+        layoutIfNeeded()
+        let tileCacheManager = TileCacheManager(highResolutionImageRemoteURL: highResolutionImageRemoteURL, imageViewSize: bounds.size, options: options)
+        tileCacheManager.delegate = self
+        let imageCacheIdentifier = tileCacheManager.imageCacheIdentifier
+        hugeImageScrollView.configure(tileCacheManager: tileCacheManager, imageCacheIdentifier: imageCacheIdentifier, options: options)
+        return imageCacheIdentifier
     }
 
 }
@@ -62,6 +89,7 @@ extension HugeImageView: TileCacheManagerDelegate {
 
     func tileCacheManagerDidFinishDownloadingHighResolutionImage(_ tileCacheManager: TileCacheManager, withResult result: Result<URL, HugeImageDownloadError>) {
         DispatchQueue.main.async {
+            self.hugeImageScrollView.reloadTilingViewIfNeeded()
             self.delegate?.hugeImageViewDidFinishDownloadingImage(self, result: result)
         }
     }

@@ -21,11 +21,13 @@
 		9E3CAF43215B15CB00E44C8D /* TileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF42215B15CB00E44C8D /* TileGenerator.swift */; };
 		9E3CAF45215B15F200E44C8D /* TileCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF44215B15F200E44C8D /* TileCacheManager.swift */; };
 		9E3CAF47215B197100E44C8D /* HugeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CAF46215B197100E44C8D /* HugeImageView.swift */; };
+		9E48283F2300F98F00D3DCD7 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E48283E2300F98F00D3DCD7 /* DownloadManager.swift */; };
 		9E4B4FF922C96F4100464D5E /* ViewStylePreparing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B4FF822C96F4100464D5E /* ViewStylePreparing.swift */; };
 		9E4B4FFB22C98A9700464D5E /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B4FFA22C98A9700464D5E /* UIScrollView+Extensions.swift */; };
 		9E50F46D22E5002B00AA1C16 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E50F46C22E5002B00AA1C16 /* MainViewController.swift */; };
 		9E50F46F22E500B000AA1C16 /* StoryboardLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E50F46E22E500B000AA1C16 /* StoryboardLoadable.swift */; };
 		9E50F47122E50BA500AA1C16 /* CGImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E50F47022E50BA500AA1C16 /* CGImage+Extensions.swift */; };
+		9EAB91402315B51F0050E07B /* Dispatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB913F2315B51F0050E07B /* Dispatching.swift */; };
 		9EBAF97222B6D964008F8228 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBAF97122B6D964008F8228 /* UIView+Extensions.swift */; };
 		9EBAF97422B6E469008F8228 /* DataCacheURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBAF97322B6E469008F8228 /* DataCacheURL.swift */; };
 /* End PBXBuildFile section */
@@ -59,11 +61,13 @@
 		9E3CAF42215B15CB00E44C8D /* TileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileGenerator.swift; sourceTree = "<group>"; };
 		9E3CAF44215B15F200E44C8D /* TileCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCacheManager.swift; sourceTree = "<group>"; };
 		9E3CAF46215B197100E44C8D /* HugeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HugeImageView.swift; sourceTree = "<group>"; };
+		9E48283E2300F98F00D3DCD7 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		9E4B4FF822C96F4100464D5E /* ViewStylePreparing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStylePreparing.swift; sourceTree = "<group>"; };
 		9E4B4FFA22C98A9700464D5E /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		9E50F46C22E5002B00AA1C16 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9E50F46E22E500B000AA1C16 /* StoryboardLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardLoadable.swift; sourceTree = "<group>"; };
 		9E50F47022E50BA500AA1C16 /* CGImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extensions.swift"; sourceTree = "<group>"; };
+		9EAB913F2315B51F0050E07B /* Dispatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatching.swift; sourceTree = "<group>"; };
 		9EBAF97122B6D964008F8228 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		9EBAF97322B6E469008F8228 /* DataCacheURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +111,7 @@
 		9E3CAF072158187400E44C8D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				9EAB913E2315B5110050E07B /* Protocols */,
 				9EBAF97022B6D955008F8228 /* Utilities */,
 				9EBAF96E22B6D625008F8228 /* Views */,
 				9EBAF96D22B6D60B008F8228 /* Managers */,
@@ -127,10 +132,19 @@
 			path = HugeImageLoaderTests;
 			sourceTree = "<group>";
 		};
+		9EAB913E2315B5110050E07B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9EAB913F2315B51F0050E07B /* Dispatching.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		9EBAF96D22B6D60B008F8228 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				9E3CAF44215B15F200E44C8D /* TileCacheManager.swift */,
+				9E48283E2300F98F00D3DCD7 /* DownloadManager.swift */,
 				9E3CAF42215B15CB00E44C8D /* TileGenerator.swift */,
 			);
 			path = Managers;
@@ -283,7 +297,9 @@
 				9E4B4FF922C96F4100464D5E /* ViewStylePreparing.swift in Sources */,
 				9E4B4FFB22C98A9700464D5E /* UIScrollView+Extensions.swift in Sources */,
 				9E3CAF43215B15CB00E44C8D /* TileGenerator.swift in Sources */,
+				9E48283F2300F98F00D3DCD7 /* DownloadManager.swift in Sources */,
 				9E3CAF41215B15AA00E44C8D /* TilingView.swift in Sources */,
+				9EAB91402315B51F0050E07B /* Dispatching.swift in Sources */,
 				9E3CAF3F215B143C00E44C8D /* HugeImageScrollView.swift in Sources */,
 				9E3CAF092158187400E44C8D /* AppDelegate.swift in Sources */,
 				9E3CAF45215B15F200E44C8D /* TileCacheManager.swift in Sources */,
@@ -451,7 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FSZ7DAUHLX;
+				DEVELOPMENT_TEAM = 6D429SHX3Y;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -469,7 +485,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FSZ7DAUHLX;
+				DEVELOPMENT_TEAM = 6D429SHX3Y;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

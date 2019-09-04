@@ -12,11 +12,16 @@ class HugeImageViewController: UIViewController, StoryboardLoadable {
         view.backgroundColor = .black
     }
 
-    func load(imageURL: URL, placeholderImage: UIImage, imageSize: CGSize) {
+    func load(imageURL: URL, withOptions options: HugeImageOptions) {
         hugeImageView.delegate = self
         loadingIndicator.startAnimating()
+        hugeImageView.load(highResolutionImageRemoteURL: imageURL, withOptions: options)
+    }
 
-        hugeImageView.load(highResolutionImageRemoteURL: imageURL, imageID: "StarsGather", placeholderImage: placeholderImage, fullImageSize: imageSize)
+    func load(imageURL: URL) {
+        hugeImageView.delegate = self
+        loadingIndicator.startAnimating()
+        hugeImageView.load(highResolutionImageRemoteURL: imageURL)
     }
 
     private func stopLoading() {

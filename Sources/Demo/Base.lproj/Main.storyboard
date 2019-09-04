@@ -19,10 +19,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfd-1b-n2b">
-                                <rect key="frame" x="146.5" y="438" width="121" height="30"/>
-                                <state key="normal" title="Landscape Image"/>
+                                <rect key="frame" x="112" y="438" width="190" height="30"/>
+                                <state key="normal" title="Load image without options"/>
                                 <connections>
-                                    <action selector="didSelectLandscapeImage:" destination="U1b-sb-JaG" eventType="touchUpInside" id="Bw2-LU-h3t"/>
+                                    <action selector="loadImageWithoutOptions:" destination="U1b-sb-JaG" eventType="touchUpInside" id="YfL-B2-UxL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KS2-U2-aKF">
+                                <rect key="frame" x="123.5" y="486" width="167" height="30"/>
+                                <state key="normal" title="Load image with options"/>
+                                <connections>
+                                    <action selector="loadImageWithOptions:" destination="U1b-sb-JaG" eventType="touchUpInside" id="4Sa-FX-hF8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -30,6 +37,8 @@
                         <constraints>
                             <constraint firstItem="Zfd-1b-n2b" firstAttribute="centerY" secondItem="K83-j7-XeR" secondAttribute="centerY" id="7DB-px-hgz"/>
                             <constraint firstItem="Zfd-1b-n2b" firstAttribute="centerX" secondItem="K83-j7-XeR" secondAttribute="centerX" id="RoB-pH-RHK"/>
+                            <constraint firstItem="KS2-U2-aKF" firstAttribute="centerX" secondItem="Zfd-1b-n2b" secondAttribute="centerX" id="SiC-oL-zML"/>
+                            <constraint firstItem="KS2-U2-aKF" firstAttribute="top" secondItem="Zfd-1b-n2b" secondAttribute="bottom" constant="18" id="WaQ-zO-2t9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="K83-j7-XeR"/>
                     </view>
@@ -47,7 +56,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pae-2u-qU2" customClass="HugeImageView" customModule="HugeImageLoader" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSw-UA-GnR">
                                 <rect key="frame" x="16" y="60" width="39" height="30"/>
@@ -62,13 +71,13 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Fx3-T5-StO" firstAttribute="bottom" secondItem="pae-2u-qU2" secondAttribute="bottom" id="64t-57-2SR"/>
+                            <constraint firstItem="pae-2u-qU2" firstAttribute="bottom" secondItem="nee-fu-ihk" secondAttribute="bottom" id="64t-57-2SR"/>
                             <constraint firstItem="NSw-UA-GnR" firstAttribute="top" secondItem="Fx3-T5-StO" secondAttribute="top" constant="16" id="Dbw-Vu-EZo"/>
                             <constraint firstItem="NSw-UA-GnR" firstAttribute="leading" secondItem="Fx3-T5-StO" secondAttribute="leading" constant="16" id="Dwt-N6-mpx"/>
-                            <constraint firstItem="pae-2u-qU2" firstAttribute="leading" secondItem="Fx3-T5-StO" secondAttribute="leading" id="MeW-zR-MwL"/>
+                            <constraint firstItem="pae-2u-qU2" firstAttribute="leading" secondItem="nee-fu-ihk" secondAttribute="leading" id="MeW-zR-MwL"/>
                             <constraint firstItem="LYV-0f-8yT" firstAttribute="centerY" secondItem="Fx3-T5-StO" secondAttribute="centerY" id="RRj-i0-PtT"/>
-                            <constraint firstItem="pae-2u-qU2" firstAttribute="top" secondItem="Fx3-T5-StO" secondAttribute="top" id="dU0-Kl-ZtK"/>
-                            <constraint firstItem="Fx3-T5-StO" firstAttribute="trailing" secondItem="pae-2u-qU2" secondAttribute="trailing" id="nHL-F0-kqR"/>
+                            <constraint firstItem="pae-2u-qU2" firstAttribute="top" secondItem="nee-fu-ihk" secondAttribute="top" id="dU0-Kl-ZtK"/>
+                            <constraint firstAttribute="trailing" secondItem="pae-2u-qU2" secondAttribute="trailing" id="nHL-F0-kqR"/>
                             <constraint firstItem="LYV-0f-8yT" firstAttribute="centerX" secondItem="Fx3-T5-StO" secondAttribute="centerX" id="xqb-Uf-YCF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Fx3-T5-StO"/>
