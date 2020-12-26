@@ -59,8 +59,7 @@ class TileCacheManager: NSObject {
         return fullImageSize.constrainToSize(size)
     }
 
-    init(highResolutionImageRemoteURL: URL,
-         imageViewSize: CGSize,
+    init(imageViewSize: CGSize,
          options: HugeImageOptions? = nil,
          downloadManager: DownloadManaging? = nil) {
         self.imageCacheIdentifier = ImageCacheIdentifier(id: options?.imageID ?? UUID().uuidString)
@@ -73,7 +72,6 @@ class TileCacheManager: NSObject {
 
         setupCache()
         self.downloadManager.delegate = self
-        self.downloadManager.downloadImageFromURL(highResolutionImageRemoteURL)
     }
 
     func urlPathFor(prefix: String, row: Int, col: Int) -> URL? {
@@ -107,6 +105,10 @@ class TileCacheManager: NSObject {
             return
         }
         try? fileManager.createDirectory(atPath: dataCacheDirectoryPath, withIntermediateDirectories: true, attributes: nil)
+    }
+    
+    func startDownload(highResolutionImageRemoteURL: URL) {
+        self.downloadManager.downloadImageFromURL(highResolutionImageRemoteURL)
     }
 
     private func clearImageCache() {
